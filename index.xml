@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Lewis 的博客</title>
+    <link>https://lewis1766.github.io/</link>
+    <description>Recent content on Lewis 的博客</description>
+    <generator>Hugo</generator>
+    <language>zh</language>
+    <lastBuildDate>Fri, 17 Apr 2026 17:02:10 +0800</lastBuildDate>
+    <atom:link href="https://lewis1766.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于我</title>
+      <link>https://lewis1766.github.io/about/</link>
+      <pubDate>Fri, 17 Apr 2026 17:02:10 +0800</pubDate>
+      <guid>https://lewis1766.github.io/about/</guid>
+      <description>&lt;p&gt;&lt;br&gt;
+很高兴你能来到这里。&lt;/p&gt;
+&lt;p&gt;本人目前处在CTF（Capture the Flag，夺旗赛）知识的学习中，研究主要是web方向，萌新一枚，请多指教。&lt;/p&gt;
+&lt;p&gt;本人对AI也非常感兴趣，欢迎志同道合的人和我畅所欲言。在这里我将主要分享我的学习过程和实战心得，也可能夹带一些个人生活（说实话我还没想好发什么）。&lt;/p&gt;
+&lt;p&gt;我的爱好：音乐/电影/美剧/旅游&lt;/p&gt;
+&lt;p&gt;我的微信：Q2FsaWYwcm5pYWRyZWFtaW4=（请解码）&lt;/p&gt;
+&lt;p&gt;最后是英语课的时候庞老师放乔布斯演讲视频里的一句话，我认为终身受用&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;Stay Hungry, Stay Foolish.&amp;rdquo;&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    <item>
+      <title>第一篇文章</title>
+      <link>https://lewis1766.github.io/posts/my-first-post/</link>
+      <pubDate>Fri, 17 Apr 2026 16:00:42 +0800</pubDate>
+      <guid>https://lewis1766.github.io/posts/my-first-post/</guid>
+      <description>&lt;p&gt;欢迎来到我的网站！&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
