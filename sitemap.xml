@@ -2,23 +2,36 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://lewis1766.github.io/</loc>
+    <loc>http://localhost:1313/tags/ai/</loc>
+    <lastmod>2026-05-19T12:51:58+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/copilot/</loc>
+    <lastmod>2026-05-19T12:51:58+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/github/</loc>
+    <lastmod>2026-05-19T12:51:58+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/20260519/</loc>
+    <lastmod>2026-05-19T12:51:58+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2026-05-19T12:51:58+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2026-05-19T12:51:58+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/</loc>
+    <lastmod>2026-05-19T12:51:58+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/about/</loc>
     <lastmod>2026-04-17T17:02:10+08:00</lastmod>
   </url><url>
-    <loc>https://lewis1766.github.io/about/</loc>
-    <lastmod>2026-04-17T17:02:10+08:00</lastmod>
-  </url><url>
-    <loc>https://lewis1766.github.io/search/</loc>
+    <loc>http://localhost:1313/search/</loc>
     <lastmod>2026-04-17T16:23:47+08:00</lastmod>
   </url><url>
-    <loc>https://lewis1766.github.io/posts/</loc>
+    <loc>http://localhost:1313/posts/my-first-post/</loc>
     <lastmod>2026-04-17T16:00:42+08:00</lastmod>
   </url><url>
-    <loc>https://lewis1766.github.io/posts/my-first-post/</loc>
-    <lastmod>2026-04-17T16:00:42+08:00</lastmod>
-  </url><url>
-    <loc>https://lewis1766.github.io/categories/</loc>
-  </url><url>
-    <loc>https://lewis1766.github.io/tags/</loc>
+    <loc>http://localhost:1313/categories/</loc>
   </url>
 </urlset>

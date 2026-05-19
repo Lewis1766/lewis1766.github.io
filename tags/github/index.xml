@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>文章 on Lewis 的博客</title>
-    <link>http://localhost:1313/posts/</link>
-    <description>Recent content in 文章 on Lewis 的博客</description>
+    <title>GitHub on Lewis 的博客</title>
+    <link>http://localhost:1313/tags/github/</link>
+    <description>Recent content in GitHub on Lewis 的博客</description>
     <generator>Hugo</generator>
     <language>zh</language>
     <lastBuildDate>Tue, 19 May 2026 12:51:58 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/github/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>GitHub Copilot CLI 体验</title>
       <link>http://localhost:1313/posts/20260519/</link>
@@ -229,13 +229,6 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;是用flask搭的&#34;&gt;是用flask搭的&lt;/h2&gt;
 &lt;p&gt;代码不详说，就是一个非常简单的项目，.db文件是数据库，用的sqlite，打开试试，在5000端口跑起来
 &lt;img alt=&#34;cmd&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/4.png&#34;&gt;&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>第一篇文章</title>
-      <link>http://localhost:1313/posts/my-first-post/</link>
-      <pubDate>Fri, 17 Apr 2026 16:00:42 +0800</pubDate>
-      <guid>http://localhost:1313/posts/my-first-post/</guid>
-      <description>&lt;p&gt;欢迎来到我的网站！&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
