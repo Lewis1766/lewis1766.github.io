@@ -6,8 +6,15 @@
     <description>Recent content in 文章 on Lewis 的博客</description>
     <generator>Hugo</generator>
     <language>zh</language>
-    <lastBuildDate>Fri, 17 Apr 2026 16:00:42 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 19 May 2026 10:20:43 +0800</lastBuildDate>
     <atom:link href="https://lewis1766.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>第二篇文章</title>
+      <link>https://lewis1766.github.io/posts/my-second-post/</link>
+      <pubDate>Mon, 19 May 2026 10:20:43 +0800</pubDate>
+      <guid>https://lewis1766.github.io/posts/my-second-post/</guid>
+      <description>&lt;p&gt;这是第二篇文章，不要替换&lt;/p&gt;</description>
+    </item>
     <item>
       <title>杭州电子科技大学简介</title>
       <link>https://lewis1766.github.io/posts/my-first-post/</link>
