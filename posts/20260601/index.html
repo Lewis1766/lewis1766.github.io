@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto" data-theme="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>一次对学校内网的渗透 | Lewis 的博客</title>
 <meta name="keywords" content="渗透">
 <meta name="description" content="前言
@@ -14,8 +14,6 @@
 Spring Boot 信息泄露
 我最近在学校的专利成果转化中心勤工俭学，不得不说学校的岗位就是清闲不少。我没事干的时候就扫了一下
 这里的wifi密码他们告诉了我。连接后发现网段是192.168.5.x/24，是我们校园网里的一个配网。扫描发现 192.168.5.15 开放 Spring Boot Actuator 端点：
-| 端点 | 风险 |
-|&mdash;&mdash;|&mdash;&mdash;|
 | /heapdump | 严重 - 可下载堆转储文件 |
 | /env | 严重 - 泄露环境变量配置 |
 
@@ -31,16 +29,16 @@ Spring Boot 信息泄露
 
 未完待续&hellip;">
 <meta name="author" content="Lewis">
-<link rel="canonical" href="http://localhost:1313/posts/20260601/">
+<link rel="canonical" href="https://lewis1766.github.io/posts/20260601/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.9e010bc22ef5794c0560b82f657f315607f24d8b05e0088e95b900c22246f5c0.css" integrity="sha256-ngELwi71eUwFYLgvZX8xVgfyTYsF4AiOlbkAwiJG9cA=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="icon" href="https://lewis1766.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://lewis1766.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://lewis1766.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://lewis1766.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://lewis1766.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/20260601/">
+<link rel="alternate" hreflang="en" href="https://lewis1766.github.io/posts/20260601/">
 <noscript>
     <style>
         #theme-toggle,
@@ -86,13 +84,95 @@ Spring Boot 信息泄露
         document.querySelector("html").dataset.theme = 'light';
     }
 
+</script><meta property="og:url" content="https://lewis1766.github.io/posts/20260601/">
+  <meta property="og:site_name" content="Lewis 的博客">
+  <meta property="og:title" content="一次对学校内网的渗透">
+  <meta property="og:description" content="前言 最近对渗透测试特别感兴趣，越来越想找一个真实的环境练手，最后瞄准了校园网。我想如果被发现入侵，好歹是自己学校，应该不会过于为难我。
+搞笑的是，我真的被导员联系了，说是上网有关问题，当时我心中一悸，心想是不是渗透的太过火了，结果竟然是因为fq问题，并且我被告知不能再fq，我写了检讨书。。。我现在连github都不敢打开，那么这几天的学习就暂时停一阵吧。
+我把校园网攻击了反而没人问。。。
+Spring Boot 信息泄露 我最近在学校的专利成果转化中心勤工俭学，不得不说学校的岗位就是清闲不少。我没事干的时候就扫了一下
+这里的wifi密码他们告诉了我。连接后发现网段是192.168.5.x/24，是我们校园网里的一个配网。扫描发现 192.168.5.15 开放 Spring Boot Actuator 端点：
+| /heapdump | 严重 - 可下载堆转储文件 |
+| /env | 严重 - 泄露环境变量配置 |
+直接访问断点，得到heapdump文件和env配置，使用jdumpspider分析一下，这个工具用来springboot内存取证简单好用，本质就是一个提取关键字的脚本。比较初步的分析就不必惊动EclipseMemoryAnalyzer了。 华为AX3PRO路由器 (192.168.5.1) 发现弱密码：和wifi密码相同，为门牌号输三次 成功登入管理界面 未完待续…">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-06-01T21:54:33+08:00">
+    <meta property="article:modified_time" content="2026-06-01T21:54:33+08:00">
+    <meta property="article:tag" content="渗透">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="一次对学校内网的渗透">
+  <meta name="twitter:description" content="前言 最近对渗透测试特别感兴趣，越来越想找一个真实的环境练手，最后瞄准了校园网。我想如果被发现入侵，好歹是自己学校，应该不会过于为难我。
+搞笑的是，我真的被导员联系了，说是上网有关问题，当时我心中一悸，心想是不是渗透的太过火了，结果竟然是因为fq问题，并且我被告知不能再fq，我写了检讨书。。。我现在连github都不敢打开，那么这几天的学习就暂时停一阵吧。
+我把校园网攻击了反而没人问。。。
+Spring Boot 信息泄露 我最近在学校的专利成果转化中心勤工俭学，不得不说学校的岗位就是清闲不少。我没事干的时候就扫了一下
+这里的wifi密码他们告诉了我。连接后发现网段是192.168.5.x/24，是我们校园网里的一个配网。扫描发现 192.168.5.15 开放 Spring Boot Actuator 端点：
+| /heapdump | 严重 - 可下载堆转储文件 |
+| /env | 严重 - 泄露环境变量配置 |
+直接访问断点，得到heapdump文件和env配置，使用jdumpspider分析一下，这个工具用来springboot内存取证简单好用，本质就是一个提取关键字的脚本。比较初步的分析就不必惊动EclipseMemoryAnalyzer了。 华为AX3PRO路由器 (192.168.5.1) 发现弱密码：和wifi密码相同，为门牌号输三次 成功登入管理界面 未完待续…">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "文章",
+      "item": "https://lewis1766.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "一次对学校内网的渗透",
+      "item": "https://lewis1766.github.io/posts/20260601/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "一次对学校内网的渗透",
+  "name": "一次对学校内网的渗透",
+  "description": "前言 最近对渗透测试特别感兴趣，越来越想找一个真实的环境练手，最后瞄准了校园网。我想如果被发现入侵，好歹是自己学校，应该不会过于为难我。\n搞笑的是，我真的被导员联系了，说是上网有关问题，当时我心中一悸，心想是不是渗透的太过火了，结果竟然是因为fq问题，并且我被告知不能再fq，我写了检讨书。。。我现在连github都不敢打开，那么这几天的学习就暂时停一阵吧。\n我把校园网攻击了反而没人问。。。\nSpring Boot 信息泄露 我最近在学校的专利成果转化中心勤工俭学，不得不说学校的岗位就是清闲不少。我没事干的时候就扫了一下\n这里的wifi密码他们告诉了我。连接后发现网段是192.168.5.x/24，是我们校园网里的一个配网。扫描发现 192.168.5.15 开放 Spring Boot Actuator 端点：\n| /heapdump | 严重 - 可下载堆转储文件 |\n| /env | 严重 - 泄露环境变量配置 |\n直接访问断点，得到heapdump文件和env配置，使用jdumpspider分析一下，这个工具用来springboot内存取证简单好用，本质就是一个提取关键字的脚本。比较初步的分析就不必惊动EclipseMemoryAnalyzer了。 华为AX3PRO路由器 (192.168.5.1) 发现弱密码：和wifi密码相同，为门牌号输三次 成功登入管理界面 未完待续\u0026hellip;\n",
+  "keywords": [
+    "渗透"
+  ],
+  "articleBody": "前言 最近对渗透测试特别感兴趣，越来越想找一个真实的环境练手，最后瞄准了校园网。我想如果被发现入侵，好歹是自己学校，应该不会过于为难我。\n搞笑的是，我真的被导员联系了，说是上网有关问题，当时我心中一悸，心想是不是渗透的太过火了，结果竟然是因为fq问题，并且我被告知不能再fq，我写了检讨书。。。我现在连github都不敢打开，那么这几天的学习就暂时停一阵吧。\n我把校园网攻击了反而没人问。。。\nSpring Boot 信息泄露 我最近在学校的专利成果转化中心勤工俭学，不得不说学校的岗位就是清闲不少。我没事干的时候就扫了一下\n这里的wifi密码他们告诉了我。连接后发现网段是192.168.5.x/24，是我们校园网里的一个配网。扫描发现 192.168.5.15 开放 Spring Boot Actuator 端点：\n| /heapdump | 严重 - 可下载堆转储文件 |\n| /env | 严重 - 泄露环境变量配置 |\n直接访问断点，得到heapdump文件和env配置，使用jdumpspider分析一下，这个工具用来springboot内存取证简单好用，本质就是一个提取关键字的脚本。比较初步的分析就不必惊动EclipseMemoryAnalyzer了。 华为AX3PRO路由器 (192.168.5.1) 发现弱密码：和wifi密码相同，为门牌号输三次 成功登入管理界面 未完待续…\n",
+  "wordCount" : "35",
+  "inLanguage": "en",
+  "datePublished": "2026-06-01T21:54:33+08:00",
+  "dateModified": "2026-06-01T21:54:33+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Lewis"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://lewis1766.github.io/posts/20260601/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Lewis 的博客",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://lewis1766.github.io/favicon.ico"
+    }
+  }
+}
 </script>
 </head>
 <body id="top">
     <header class="header">
     <nav class="header-nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="Lewis 的博客 (Alt + H)">Lewis 的博客</a>
+            <a href="https://lewis1766.github.io/" accesskey="h" title="Lewis 的博客 (Alt + H)">Lewis 的博客</a>
             <div class="logo-switches">
                 <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
@@ -118,27 +198,27 @@ Spring Boot 信息泄露
         </div>
         <ul id="menu" class="menu">
             <li>
-                <a href="http://localhost:1313/" title="主页">
+                <a href="https://lewis1766.github.io/" title="主页">
                     <span>主页</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/posts/" title="文章">
+                <a href="https://lewis1766.github.io/posts/" title="文章">
                     <span>文章</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/tags/" title="标签">
+                <a href="https://lewis1766.github.io/tags/" title="标签">
                     <span>标签</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                <a href="https://lewis1766.github.io/search/" title="搜索 (Alt &#43; /)" accesskey=/>
                     <span>搜索</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/about/" title="关于">
+                <a href="https://lewis1766.github.io/about/" title="关于">
                     <span>关于</span>
                 </a>
             </li>
@@ -164,8 +244,6 @@ Spring Boot 信息泄露
 <h2 id="spring-boot-信息泄露">Spring Boot 信息泄露<a hidden class="anchor" aria-hidden="true" href="#spring-boot-信息泄露">#</a></h2>
 <p>我最近在学校的专利成果转化中心勤工俭学，不得不说学校的岗位就是清闲不少。我没事干的时候就扫了一下</p>
 <p>这里的wifi密码他们告诉了我。连接后发现网段是192.168.5.x/24，是我们校园网里的一个配网。扫描发现 <code>192.168.5.15</code> 开放 Spring Boot Actuator 端点：</p>
-<p>| 端点 | 风险 |</p>
-<p>|&mdash;&mdash;|&mdash;&mdash;|</p>
 <p>| <code>/heapdump</code> | 严重 - 可下载堆转储文件 |</p>
 <p>| <code>/env</code> | 严重 - 泄露环境变量配置 |</p>
 <p><img alt="heapdump" loading="lazy" src="/images/heapdump.png"></p>
@@ -186,10 +264,10 @@ Spring Boot 信息泄露
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://localhost:1313/tags/%E6%B8%97%E9%80%8F/">渗透</a></li>
+      <li><a href="https://lewis1766.github.io/tags/%E6%B8%97%E9%80%8F/">渗透</a></li>
     </ul>
 <nav class="paginav">
-  <a class="next" href="http://localhost:1313/posts/20260519/">
+  <a class="next" href="https://lewis1766.github.io/posts/20260519/">
     <span class="title">下一页 »</span>
     <span>GitHub Copilot CLI 体验</span>
   </a>
@@ -200,7 +278,7 @@ Spring Boot 信息泄露
     </main>
     
 <footer class="footer">
-        <span>&copy; 2026 <a href="http://localhost:1313/">Lewis 的博客</a></span> · 
+        <span>&copy; 2026 <a href="https://lewis1766.github.io/">Lewis 的博客</a></span> · 
 
     <span>
         Powered by

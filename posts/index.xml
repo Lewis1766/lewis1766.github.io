@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>文章 on Lewis 的博客</title>
-    <link>http://localhost:1313/posts/</link>
+    <link>https://lewis1766.github.io/posts/</link>
     <description>Recent content in 文章 on Lewis 的博客</description>
     <generator>Hugo</generator>
     <language>zh</language>
     <lastBuildDate>Mon, 01 Jun 2026 21:54:33 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://lewis1766.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>一次对学校内网的渗透</title>
-      <link>http://localhost:1313/posts/20260601/</link>
+      <link>https://lewis1766.github.io/posts/20260601/</link>
       <pubDate>Mon, 01 Jun 2026 21:54:33 +0800</pubDate>
-      <guid>http://localhost:1313/posts/20260601/</guid>
+      <guid>https://lewis1766.github.io/posts/20260601/</guid>
       <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;最近对渗透测试特别感兴趣，越来越想找一个真实的环境练手，最后瞄准了校园网。我想如果被发现入侵，好歹是自己学校，应该不会过于为难我。&lt;/p&gt;
 &lt;p&gt;搞笑的是，我真的被导员联系了，说是上网有关问题，当时我心中一悸，心想是不是渗透的太过火了，结果竟然是因为fq问题，并且我被告知不能再fq，我写了检讨书。。。我现在连github都不敢打开，那么这几天的学习就暂时停一阵吧。&lt;/p&gt;
@@ -20,42 +20,40 @@
 &lt;h2 id=&#34;spring-boot-信息泄露&#34;&gt;Spring Boot 信息泄露&lt;/h2&gt;
 &lt;p&gt;我最近在学校的专利成果转化中心勤工俭学，不得不说学校的岗位就是清闲不少。我没事干的时候就扫了一下&lt;/p&gt;
 &lt;p&gt;这里的wifi密码他们告诉了我。连接后发现网段是192.168.5.x/24，是我们校园网里的一个配网。扫描发现 &lt;code&gt;192.168.5.15&lt;/code&gt; 开放 Spring Boot Actuator 端点：&lt;/p&gt;
-&lt;p&gt;| 端点 | 风险 |&lt;/p&gt;
-&lt;p&gt;|&amp;mdash;&amp;mdash;|&amp;mdash;&amp;mdash;|&lt;/p&gt;
 &lt;p&gt;| &lt;code&gt;/heapdump&lt;/code&gt; | 严重 - 可下载堆转储文件 |&lt;/p&gt;
 &lt;p&gt;| &lt;code&gt;/env&lt;/code&gt; | 严重 - 泄露环境变量配置 |&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;heapdump&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/heapdump.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;heapdump&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/heapdump.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;直接访问断点，得到heapdump文件和env配置，使用jdumpspider分析一下，这个工具用来springboot内存取证简单好用，本质就是一个提取关键字的脚本。比较初步的分析就不必惊动EclipseMemoryAnalyzer了。
-&lt;img alt=&#34;jdumpspider&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/jdumpspider.png&#34;&gt;
-&lt;img alt=&#34;cmd&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/cmd.png&#34;&gt;
-&lt;img alt=&#34;发现专利局帐密&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/%E5%8F%91%E7%8E%B0%E4%B8%93%E5%88%A9%E5%B1%80%E5%B8%90%E5%AF%86.png&#34;&gt;&lt;/p&gt;
+&lt;img alt=&#34;jdumpspider&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/jdumpspider.png&#34;&gt;
+&lt;img alt=&#34;cmd&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/cmd.png&#34;&gt;
+&lt;img alt=&#34;发现专利局帐密&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/%E5%8F%91%E7%8E%B0%E4%B8%93%E5%88%A9%E5%B1%80%E5%B8%90%E5%AF%86.png&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;华为ax3pro路由器&#34;&gt;华为AX3PRO路由器&lt;/h2&gt;
 &lt;p&gt;(192.168.5.1)
-&lt;img alt=&#34;router&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/router.png&#34;&gt;
+&lt;img alt=&#34;router&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/router.png&#34;&gt;
 发现弱密码：和wifi密码相同，为门牌号输三次
 成功登入管理界面
-&lt;img alt=&#34;admin&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/admin.png&#34;&gt;
+&lt;img alt=&#34;admin&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/admin.png&#34;&gt;
 未完待续&amp;hellip;&lt;/p&gt;</description>
     </item>
     <item>
       <title>GitHub Copilot CLI 体验</title>
-      <link>http://localhost:1313/posts/20260519/</link>
+      <link>https://lewis1766.github.io/posts/20260519/</link>
       <pubDate>Tue, 19 May 2026 12:51:58 +0800</pubDate>
-      <guid>http://localhost:1313/posts/20260519/</guid>
+      <guid>https://lewis1766.github.io/posts/20260519/</guid>
       <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;最近在 GitHub 学生包里发现了一个好东西——&lt;strong&gt;GitHub Copilot CLI&lt;/strong&gt;&amp;hellip;&lt;/p&gt;
 &lt;h2 id=&#34;copilot-cli&#34;&gt;Copilot CLI&lt;/h2&gt;
 &lt;p&gt;听说这个产品是 &lt;strong&gt;Claude Code&lt;/strong&gt; 的竞品，刚看新闻说微软让员工从Claude Code转用它&lt;br&gt;
 正好对比体验一下&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;Copilot CLI 运行截图&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/copilotcli.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;Copilot CLI 运行截图&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/copilotcli.png&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;大一-c-语言实践作业&#34;&gt;大一 C 语言实践作业&lt;/h2&gt;
 &lt;p&gt;翻到之前大一的 C 语言作业——&lt;strong&gt;学生管理系统&lt;/strong&gt;&amp;hellip;&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;大一C语言作业截图&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/c.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;大一C语言作业截图&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/c.png&#34;&gt;&lt;/p&gt;
 &lt;p&gt;当时懵懂无知，完全不懂什么是 agent&amp;hellip;&lt;br&gt;
 用 DeepSeek 改了又改，虽然（but still）仍然不会古法编程&amp;hellip;&lt;/p&gt;
 &lt;p&gt;现在用 Copilot CLI，几分钟就能写好，完全不用手。&lt;br&gt;
 搭一个网页版吧
-&lt;img alt=&#34;生成的文件&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/a.png&#34;&gt;&lt;/p&gt;
+&lt;img alt=&#34;生成的文件&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/a.png&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;核心代码&#34;&gt;核心代码&lt;/h2&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; flask &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; Flask, g, render_template, request, redirect, url_for
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; sqlite3
@@ -257,13 +255,13 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    app&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;run(host&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;127.0.0.1&amp;#39;&lt;/span&gt;, port&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;5000&lt;/span&gt;, debug&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;是用flask搭的&#34;&gt;是用flask搭的&lt;/h2&gt;
 &lt;p&gt;代码不详说，就是一个非常简单的项目，.db文件是数据库，用的sqlite，打开试试，在5000端口跑起来
-&lt;img alt=&#34;cmd&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/4.png&#34;&gt;&lt;/p&gt;</description>
+&lt;img alt=&#34;cmd&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/4.png&#34;&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>挖到第一个漏洞：杭州鼎文国际学校API未授权访问</title>
-      <link>http://localhost:1313/posts/20260504/20260504/</link>
+      <link>https://lewis1766.github.io/posts/20260504/20260504/</link>
       <pubDate>Mon, 04 May 2026 21:54:33 +0800</pubDate>
-      <guid>http://localhost:1313/posts/20260504/20260504/</guid>
+      <guid>https://lewis1766.github.io/posts/20260504/20260504/</guid>
       <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;入行漏洞挖掘以来，终于成功提交并通过审核第一个正式漏洞，记录下这次完整挖洞全过程，也算是给自己网络安全学习之路留下一份纪念。&lt;/p&gt;
 &lt;h2 id=&#34;漏洞基础信息&#34;&gt;漏洞基础信息&lt;/h2&gt;
@@ -280,13 +278,13 @@
 &lt;code&gt;https://pr.dingwenacademy.com/static/js/app.ac0b7b5b.js&lt;/code&gt;
 这种网页一般都是前后端分离的架构，提升了用户体验不假，但是容易出现api未授权访问
 搜索关键字“api”，发现暴露了后端大量业务API接口地址，逐一筛选测试接口可用性。
-&lt;img alt=&#34;js&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/js.png&#34;&gt;&lt;/p&gt;
+&lt;img alt=&#34;js&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/js.png&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;漏洞核心问题&#34;&gt;漏洞核心问题&lt;/h2&gt;
 &lt;p&gt;发现/api/student/selectAllBy, /api/student/selectDocBy, /api/source/getSelect, /api/source/getSelectByUser
 暴露大量人员信息，包含姓名，邮箱，用户名
-&lt;img alt=&#34;leak&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/leak.jpg&#34;&gt;&lt;/p&gt;
+&lt;img alt=&#34;leak&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/leak.jpg&#34;&gt;&lt;/p&gt;
 &lt;p&gt;/api/student/selectAllBy这个接口暴露微信wxpass、人员唯一ID 等核心隐私数据。
-&lt;img alt=&#34;leak2&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/leak2.jpg&#34;&gt;&lt;/p&gt;
+&lt;img alt=&#34;leak2&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/leak2.jpg&#34;&gt;&lt;/p&gt;
 &lt;p&gt;多组未授权接口组合利用，可批量抓取学校师资、生源、部门配置、业务资源等内部数据，极易造成校内人员信息批量外泄，存在隐私泄露与后续社工攻击风险。&lt;/p&gt;
 &lt;h2 id=&#34;漏洞详情总结&#34;&gt;漏洞详情总结&lt;/h2&gt;
 &lt;p&gt;平台后端整站API接口设计存在严重权限管控缺失，前端JS明文批量泄露接口路径，后台未统一做登录态校验。
@@ -308,9 +306,9 @@
     </item>
     <item>
       <title>第一篇文章</title>
-      <link>http://localhost:1313/posts/my-first-post/</link>
+      <link>https://lewis1766.github.io/posts/my-first-post/</link>
       <pubDate>Fri, 17 Apr 2026 16:00:42 +0800</pubDate>
-      <guid>http://localhost:1313/posts/my-first-post/</guid>
+      <guid>https://lewis1766.github.io/posts/my-first-post/</guid>
       <description>&lt;p&gt;欢迎来到我的网站！&lt;/p&gt;</description>
     </item>
   </channel>
