@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>信息泄露 on Lewis 的博客</title>
+    <link>http://localhost:1313/tags/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/</link>
+    <description>Recent content in 信息泄露 on Lewis 的博客</description>
+    <generator>Hugo</generator>
+    <language>zh</language>
+    <lastBuildDate>Mon, 04 May 2026 21:54:33 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>挖到第一个漏洞：杭州鼎文国际学校API未授权访问</title>
+      <link>http://localhost:1313/posts/20260504/20260504/</link>
+      <pubDate>Mon, 04 May 2026 21:54:33 +0800</pubDate>
+      <guid>http://localhost:1313/posts/20260504/20260504/</guid>
+      <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
+&lt;p&gt;入行漏洞挖掘以来，终于成功提交并通过审核第一个正式漏洞，记录下这次完整挖洞全过程，也算是给自己网络安全学习之路留下一份纪念。&lt;/p&gt;
+&lt;h2 id=&#34;漏洞基础信息&#34;&gt;漏洞基础信息&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;关联厂商：杭州鼎文国际学校&lt;/li&gt;
+&lt;li&gt;漏洞编号：QTVA-2026-10612190&lt;/li&gt;
+&lt;li&gt;漏洞类型：信息泄露&lt;/li&gt;
+&lt;li&gt;官方评级：中危&lt;/li&gt;
+&lt;li&gt;奖励额度：200 荣誉币&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;漏洞发现过程&#34;&gt;漏洞发现过程&lt;/h2&gt;
+&lt;p&gt;日常使用FOFA进行资产测绘搜集教育类站点资产，成功捕获到该校一体化校园管理平台地址：
+&lt;code&gt;https://pr.dingwenacademy.com/login?redirect=%2Fdashboard&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;进入登录页面后常规查看前端源码与静态JS文件，在页面加载的JS资源中：
+&lt;code&gt;https://pr.dingwenacademy.com/static/js/app.ac0b7b5b.js&lt;/code&gt;
+文件内明文暴露了后端大量业务API接口地址，逐一筛选测试接口可用性。&lt;/p&gt;
+&lt;h2 id=&#34;漏洞核心问题&#34;&gt;漏洞核心问题&lt;/h2&gt;
+&lt;p&gt;最先发现高危接口：
+&lt;code&gt;https://pr.dingwenacademy.com/api/users/selectUser&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;该接口&lt;strong&gt;未做任何登录鉴权、身份权限校验&lt;/strong&gt;，无需登录后台、无需携带任何登录凭证，直接请求即可正常访问并返回数据。&lt;/p&gt;
+&lt;p&gt;除此之外站点存在&lt;strong&gt;大量同源未授权接口&lt;/strong&gt;，权限管控整体形同虚设。&lt;/p&gt;
+&lt;p&gt;例如：
+&lt;code&gt;https://pr.dingwenacademy.com/api/source/getSelect&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;此类接口同样无任何身份验证，匿名外网用户可直接调用读取后端业务数据，并非单一接口漏洞，属于全站接口权限架构设计缺陷。&lt;/p&gt;
+&lt;h2 id=&#34;漏洞危害&#34;&gt;漏洞危害&lt;/h2&gt;
+&lt;p&gt;接口无权限拦截，直接批量泄露校内大量人员敏感信息，包含：
+账号用户名 username、微信相关密钥 wxpass、人员唯一ID 等核心隐私数据。&lt;/p&gt;
+&lt;p&gt;多组未授权接口组合利用，可批量抓取学校师资、生源、部门配置、业务资源等内部数据，极易造成校内人员信息批量外泄，存在隐私泄露与后续社工攻击风险。&lt;/p&gt;
+&lt;h2 id=&#34;漏洞详情总结&#34;&gt;漏洞详情总结&lt;/h2&gt;
+&lt;p&gt;平台后端整站API接口设计存在严重权限管控缺失，前端JS明文批量泄露接口路径，后台未统一做登录态校验。
+公开查询类数据接口全部放任外网无权限人员任意调用，大范围触发信息泄露风险。&lt;/p&gt;
+&lt;h2 id=&#34;安全修复方案&#34;&gt;安全修复方案&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;统一对站点所有 &lt;code&gt;/api/*&lt;/code&gt; 路由接口增设全局请求拦截器&lt;/li&gt;
+&lt;li&gt;强制校验请求头内 &lt;code&gt;Authorization: Bearer&lt;/code&gt; 有效登录令牌&lt;/li&gt;
+&lt;li&gt;未携带合法身份凭证直接拦截拒绝访问，禁止匿名访问业务数据接口&lt;/li&gt;
+&lt;li&gt;梳理前端JS文件，清理明文暴露的后端敏感API地址，减少接口信息泄露&lt;/li&gt;
+&lt;li&gt;区分普通访客与登录用户权限，严格划分数据查询访问权限&lt;/li&gt;
+&lt;li&gt;逐个排查全站业务接口，修复其余同类未授权访问漏洞&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;厂商反馈&#34;&gt;厂商反馈&lt;/h2&gt;
+&lt;p&gt;目前该漏洞已正式收录定级，暂未收到厂商正式整改留言与修复回复，等待校方完成安全整改加固。&lt;/p&gt;
+&lt;h2 id=&#34;挖洞心得&#34;&gt;挖洞心得&lt;/h2&gt;
+&lt;p&gt;这是我正式提交并审核通过的第一个实战漏洞，也真切体会到信息搜集、JS源码审计、接口遍历测试在日常挖洞中实用性极强。&lt;/p&gt;
+&lt;p&gt;本次也发现该校园管理平台存在批量接口权限漏洞，只是优先提交了危害最直观的用户信息泄露接口。后续继续深耕Web漏洞挖掘，从未授权、越权、信息泄露这类基础漏洞入手，稳步积累实战经验。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

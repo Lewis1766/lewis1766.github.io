@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto" data-theme="auto">
 
-<head><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex, nofollow">
 <title>GitHub Copilot CLI 体验 | Lewis 的博客</title>
 <meta name="keywords" content="Copilot, AI, GitHub">
 <meta name="description" content="前言
@@ -224,16 +224,16 @@ if __name__ == &#39;__main__&#39;:
 代码不详说，就是一个非常简单的项目，.db文件是数据库，用的sqlite，打开试试，在5000端口跑起来
 ">
 <meta name="author" content="Lewis">
-<link rel="canonical" href="https://lewis1766.github.io/posts/20260519/">
+<link rel="canonical" href="http://localhost:1313/posts/20260519/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.9e010bc22ef5794c0560b82f657f315607f24d8b05e0088e95b900c22246f5c0.css" integrity="sha256-ngELwi71eUwFYLgvZX8xVgfyTYsF4AiOlbkAwiJG9cA=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://lewis1766.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://lewis1766.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://lewis1766.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://lewis1766.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://lewis1766.github.io/safari-pinned-tab.svg">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://lewis1766.github.io/posts/20260519/">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/20260519/">
 <noscript>
     <style>
         #theme-toggle,
@@ -279,97 +279,13 @@ if __name__ == &#39;__main__&#39;:
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://lewis1766.github.io/posts/20260519/">
-  <meta property="og:site_name" content="Lewis 的博客">
-  <meta property="og:title" content="GitHub Copilot CLI 体验">
-  <meta property="og:description" content="前言 最近在 GitHub 学生包里发现了一个好东西——GitHub Copilot CLI…
-Copilot CLI 听说这个产品是 Claude Code 的竞品，刚看新闻说微软让员工从Claude Code转用它
-正好对比体验一下
-大一 C 语言实践作业 翻到之前大一的 C 语言作业——学生管理系统…
-当时懵懂无知，完全不懂什么是 agent…
-用 DeepSeek 改了又改，虽然（but still）仍然不会古法编程…
-现在用 Copilot CLI，几分钟就能写好，完全不用手。
-搭一个网页版吧 核心代码 from flask import Flask, g, render_template, request, redirect, url_for import sqlite3 import os BASE_DIR = os.path.dirname(__file__) DB_PATH = os.path.join(BASE_DIR, &#39;student.db&#39;) app = Flask(__name__, instance_path=BASE_DIR) def get_db(): db = getattr(g, &#39;_database&#39;, None) if db is None: db = g._database = sqlite3.connect(DB_PATH) db.row_factory = sqlite3.Row return db def init_db(): db = get_db() cur = db.cursor() cur.execute(&#39;&#39;&#39; CREATE TABLE IF NOT EXISTS students ( id TEXT PRIMARY KEY, name TEXT, gender TEXT, birth TEXT, address TEXT, phone TEXT, email TEXT ) &#39;&#39;&#39;) cur.execute(&#39;&#39;&#39; CREATE TABLE IF NOT EXISTS courses ( id INTEGER PRIMARY KEY AUTOINCREMENT, sid TEXT, cid TEXT, name TEXT, credit REAL ) &#39;&#39;&#39;) cur.execute(&#39;&#39;&#39; CREATE TABLE IF NOT EXISTS scores ( id INTEGER PRIMARY KEY AUTOINCREMENT, ssid TEXT, sname TEXT, scid TEXT, cname TEXT, score REAL ) &#39;&#39;&#39;) db.commit() @app.teardown_appcontext def close_connection(exception): db = getattr(g, &#39;_database&#39;, None) if db is not None: db.close() with app.app_context(): init_db() @app.route(&#39;/&#39;) def index(): return render_template(&#39;index.html&#39;) # Students @app.route(&#39;/students&#39;) def students(): db = get_db() cur = db.execute(&#39;SELECT * FROM students ORDER BY id&#39;) rows = cur.fetchall() return render_template(&#39;students.html&#39;, students=rows) @app.route(&#39;/students/add&#39;, methods=[&#39;GET&#39;, &#39;POST&#39;]) def add_student(): if request.method == &#39;POST&#39;: form = request.form db = get_db() try: db.execute(&#39;INSERT INTO students(id,name,gender,birth,address,phone,email) VALUES (?,?,?,?,?,?,?)&#39;, (form[&#39;id&#39;], form[&#39;name&#39;], form.get(&#39;gender&#39;,&#39;&#39;), form.get(&#39;birth&#39;,&#39;&#39;), form.get(&#39;address&#39;,&#39;&#39;), form.get(&#39;phone&#39;,&#39;&#39;), form.get(&#39;email&#39;,&#39;&#39;))) db.commit() except sqlite3.IntegrityError: return &#39;学号已存在&#39;, 400 return redirect(url_for(&#39;students&#39;)) return render_template(&#39;student_form.html&#39;, student=None) @app.route(&#39;/students/edit/&lt;sid&gt;&#39;, methods=[&#39;GET&#39;,&#39;POST&#39;]) def edit_student(sid): db = get_db() if request.method == &#39;POST&#39;: form = request.form db.execute(&#39;UPDATE students SET id=?,name=?,gender=?,birth=?,address=?,phone=?,email=? WHERE id=?&#39;, (form[&#39;id&#39;], form[&#39;name&#39;], form.get(&#39;gender&#39;,&#39;&#39;), form.get(&#39;birth&#39;,&#39;&#39;), form.get(&#39;address&#39;,&#39;&#39;), form.get(&#39;phone&#39;,&#39;&#39;), form.get(&#39;email&#39;,&#39;&#39;), sid)) db.commit() return redirect(url_for(&#39;students&#39;)) cur = db.execute(&#39;SELECT * FROM students WHERE id=?&#39;, (sid,)) student = cur.fetchone() return render_template(&#39;student_form.html&#39;, student=student) @app.route(&#39;/students/delete/&lt;sid&gt;&#39;, methods=[&#39;POST&#39;]) def delete_student(sid): db = get_db() db.execute(&#39;DELETE FROM students WHERE id=?&#39;, (sid,)) db.execute(&#39;DELETE FROM courses WHERE sid=?&#39;, (sid,)) db.execute(&#39;DELETE FROM scores WHERE ssid=?&#39;, (sid,)) db.commit() return redirect(url_for(&#39;students&#39;)) # Courses @app.route(&#39;/courses&#39;) def courses(): db = get_db() cur = db.execute(&#39;SELECT * FROM courses ORDER BY sid, cid&#39;) rows = cur.fetchall() return render_template(&#39;courses.html&#39;, courses=rows) @app.route(&#39;/courses/add&#39;, methods=[&#39;GET&#39;,&#39;POST&#39;]) def add_course(): if request.method == &#39;POST&#39;: f = request.form db = get_db() db.execute(&#39;INSERT INTO courses(sid,cid,name,credit) VALUES (?,?,?,?)&#39;, (f[&#39;sid&#39;], f[&#39;cid&#39;], f[&#39;name&#39;], float(f.get(&#39;credit&#39;,0)))) db.commit() return redirect(url_for(&#39;courses&#39;)) return render_template(&#39;course_form.html&#39;, course=None) @app.route(&#39;/courses/delete/&lt;int:id&gt;&#39;, methods=[&#39;POST&#39;]) def delete_course(id): db = get_db() # delete related scores cur = db.execute(&#39;SELECT sid,cid,name FROM courses WHERE id=?&#39;, (id,)) row = cur.fetchone() if row: db.execute(&#39;DELETE FROM scores WHERE scid=? AND ssid=?&#39;, (row[&#39;cid&#39;], row[&#39;sid&#39;])) db.execute(&#39;DELETE FROM courses WHERE id=?&#39;, (id,)) db.commit() return redirect(url_for(&#39;courses&#39;)) # Scores @app.route(&#39;/scores&#39;) def scores(): db = get_db() cur = db.execute(&#39;SELECT * FROM scores ORDER BY ssid&#39;) rows = cur.fetchall() return render_template(&#39;scores.html&#39;, scores=rows) @app.route(&#39;/scores/add&#39;, methods=[&#39;GET&#39;,&#39;POST&#39;]) def add_score(): if request.method == &#39;POST&#39;: f = request.form db = get_db() db.execute(&#39;INSERT INTO scores(ssid,sname,scid,cname,score) VALUES (?,?,?,?,?)&#39;, (f[&#39;ssid&#39;], f[&#39;sname&#39;], f[&#39;scid&#39;], f[&#39;cname&#39;], float(f.get(&#39;score&#39;,0)))) db.commit() return redirect(url_for(&#39;scores&#39;)) return render_template(&#39;score_form.html&#39;, score=None) @app.route(&#39;/scores/delete/&lt;int:id&gt;&#39;, methods=[&#39;POST&#39;]) def delete_score(id): db = get_db() db.execute(&#39;DELETE FROM scores WHERE id=?&#39;, (id,)) db.commit() return redirect(url_for(&#39;scores&#39;)) # Stats @app.route(&#39;/stats&#39;) def stats(): sid = request.args.get(&#39;sid&#39;) db = get_db() if not sid: return render_template(&#39;stats.html&#39;, sid=None, stats=None) # calculate avg, total credits passed cur = db.execute(&#39;SELECT score, scid FROM scores WHERE ssid=?&#39;, (sid,)) rows = cur.fetchall() if not rows: return render_template(&#39;stats.html&#39;, sid=sid, stats=None) total = 0.0 cnt = 0 credits = 0.0 for r in rows: total &#43;= r[&#39;score&#39;] cnt &#43;= 1 if r[&#39;score&#39;] &gt;= 60: c = db.execute(&#39;SELECT credit FROM courses WHERE sid=? AND cid=?&#39;, (sid, r[&#39;scid&#39;])).fetchone() if c: credits &#43;= c[&#39;credit&#39;] avg = total / cnt if cnt else 0 return render_template(&#39;stats.html&#39;, sid=sid, stats={&#39;avg&#39;:avg,&#39;credits&#39;:credits,&#39;count&#39;:cnt}) # Course ranking @app.route(&#39;/rank/&lt;cid&gt;&#39;) def rank(cid): db = get_db() cur = db.execute(&#39;SELECT sname, score FROM scores WHERE scid=? ORDER BY score DESC&#39;, (cid,)) rows = cur.fetchall() return render_template(&#39;rank.html&#39;, cid=cid, rows=rows) if __name__ == &#39;__main__&#39;: app.run(host=&#39;127.0.0.1&#39;, port=5000, debug=True) 是用flask搭的 代码不详说，就是一个非常简单的项目，.db文件是数据库，用的sqlite，打开试试，在5000端口跑起来">
-  <meta property="og:locale" content="zh">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2026-05-19T12:51:58+08:00">
-    <meta property="article:modified_time" content="2026-05-19T12:51:58+08:00">
-    <meta property="article:tag" content="Copilot">
-    <meta property="article:tag" content="AI">
-    <meta property="article:tag" content="GitHub">
-
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="GitHub Copilot CLI 体验">
-  <meta name="twitter:description" content="前言 最近在 GitHub 学生包里发现了一个好东西——GitHub Copilot CLI…
-Copilot CLI 听说这个产品是 Claude Code 的竞品，刚看新闻说微软让员工从Claude Code转用它
-正好对比体验一下
-大一 C 语言实践作业 翻到之前大一的 C 语言作业——学生管理系统…
-当时懵懂无知，完全不懂什么是 agent…
-用 DeepSeek 改了又改，虽然（but still）仍然不会古法编程…
-现在用 Copilot CLI，几分钟就能写好，完全不用手。
-搭一个网页版吧 核心代码 from flask import Flask, g, render_template, request, redirect, url_for import sqlite3 import os BASE_DIR = os.path.dirname(__file__) DB_PATH = os.path.join(BASE_DIR, &#39;student.db&#39;) app = Flask(__name__, instance_path=BASE_DIR) def get_db(): db = getattr(g, &#39;_database&#39;, None) if db is None: db = g._database = sqlite3.connect(DB_PATH) db.row_factory = sqlite3.Row return db def init_db(): db = get_db() cur = db.cursor() cur.execute(&#39;&#39;&#39; CREATE TABLE IF NOT EXISTS students ( id TEXT PRIMARY KEY, name TEXT, gender TEXT, birth TEXT, address TEXT, phone TEXT, email TEXT ) &#39;&#39;&#39;) cur.execute(&#39;&#39;&#39; CREATE TABLE IF NOT EXISTS courses ( id INTEGER PRIMARY KEY AUTOINCREMENT, sid TEXT, cid TEXT, name TEXT, credit REAL ) &#39;&#39;&#39;) cur.execute(&#39;&#39;&#39; CREATE TABLE IF NOT EXISTS scores ( id INTEGER PRIMARY KEY AUTOINCREMENT, ssid TEXT, sname TEXT, scid TEXT, cname TEXT, score REAL ) &#39;&#39;&#39;) db.commit() @app.teardown_appcontext def close_connection(exception): db = getattr(g, &#39;_database&#39;, None) if db is not None: db.close() with app.app_context(): init_db() @app.route(&#39;/&#39;) def index(): return render_template(&#39;index.html&#39;) # Students @app.route(&#39;/students&#39;) def students(): db = get_db() cur = db.execute(&#39;SELECT * FROM students ORDER BY id&#39;) rows = cur.fetchall() return render_template(&#39;students.html&#39;, students=rows) @app.route(&#39;/students/add&#39;, methods=[&#39;GET&#39;, &#39;POST&#39;]) def add_student(): if request.method == &#39;POST&#39;: form = request.form db = get_db() try: db.execute(&#39;INSERT INTO students(id,name,gender,birth,address,phone,email) VALUES (?,?,?,?,?,?,?)&#39;, (form[&#39;id&#39;], form[&#39;name&#39;], form.get(&#39;gender&#39;,&#39;&#39;), form.get(&#39;birth&#39;,&#39;&#39;), form.get(&#39;address&#39;,&#39;&#39;), form.get(&#39;phone&#39;,&#39;&#39;), form.get(&#39;email&#39;,&#39;&#39;))) db.commit() except sqlite3.IntegrityError: return &#39;学号已存在&#39;, 400 return redirect(url_for(&#39;students&#39;)) return render_template(&#39;student_form.html&#39;, student=None) @app.route(&#39;/students/edit/&lt;sid&gt;&#39;, methods=[&#39;GET&#39;,&#39;POST&#39;]) def edit_student(sid): db = get_db() if request.method == &#39;POST&#39;: form = request.form db.execute(&#39;UPDATE students SET id=?,name=?,gender=?,birth=?,address=?,phone=?,email=? WHERE id=?&#39;, (form[&#39;id&#39;], form[&#39;name&#39;], form.get(&#39;gender&#39;,&#39;&#39;), form.get(&#39;birth&#39;,&#39;&#39;), form.get(&#39;address&#39;,&#39;&#39;), form.get(&#39;phone&#39;,&#39;&#39;), form.get(&#39;email&#39;,&#39;&#39;), sid)) db.commit() return redirect(url_for(&#39;students&#39;)) cur = db.execute(&#39;SELECT * FROM students WHERE id=?&#39;, (sid,)) student = cur.fetchone() return render_template(&#39;student_form.html&#39;, student=student) @app.route(&#39;/students/delete/&lt;sid&gt;&#39;, methods=[&#39;POST&#39;]) def delete_student(sid): db = get_db() db.execute(&#39;DELETE FROM students WHERE id=?&#39;, (sid,)) db.execute(&#39;DELETE FROM courses WHERE sid=?&#39;, (sid,)) db.execute(&#39;DELETE FROM scores WHERE ssid=?&#39;, (sid,)) db.commit() return redirect(url_for(&#39;students&#39;)) # Courses @app.route(&#39;/courses&#39;) def courses(): db = get_db() cur = db.execute(&#39;SELECT * FROM courses ORDER BY sid, cid&#39;) rows = cur.fetchall() return render_template(&#39;courses.html&#39;, courses=rows) @app.route(&#39;/courses/add&#39;, methods=[&#39;GET&#39;,&#39;POST&#39;]) def add_course(): if request.method == &#39;POST&#39;: f = request.form db = get_db() db.execute(&#39;INSERT INTO courses(sid,cid,name,credit) VALUES (?,?,?,?)&#39;, (f[&#39;sid&#39;], f[&#39;cid&#39;], f[&#39;name&#39;], float(f.get(&#39;credit&#39;,0)))) db.commit() return redirect(url_for(&#39;courses&#39;)) return render_template(&#39;course_form.html&#39;, course=None) @app.route(&#39;/courses/delete/&lt;int:id&gt;&#39;, methods=[&#39;POST&#39;]) def delete_course(id): db = get_db() # delete related scores cur = db.execute(&#39;SELECT sid,cid,name FROM courses WHERE id=?&#39;, (id,)) row = cur.fetchone() if row: db.execute(&#39;DELETE FROM scores WHERE scid=? AND ssid=?&#39;, (row[&#39;cid&#39;], row[&#39;sid&#39;])) db.execute(&#39;DELETE FROM courses WHERE id=?&#39;, (id,)) db.commit() return redirect(url_for(&#39;courses&#39;)) # Scores @app.route(&#39;/scores&#39;) def scores(): db = get_db() cur = db.execute(&#39;SELECT * FROM scores ORDER BY ssid&#39;) rows = cur.fetchall() return render_template(&#39;scores.html&#39;, scores=rows) @app.route(&#39;/scores/add&#39;, methods=[&#39;GET&#39;,&#39;POST&#39;]) def add_score(): if request.method == &#39;POST&#39;: f = request.form db = get_db() db.execute(&#39;INSERT INTO scores(ssid,sname,scid,cname,score) VALUES (?,?,?,?,?)&#39;, (f[&#39;ssid&#39;], f[&#39;sname&#39;], f[&#39;scid&#39;], f[&#39;cname&#39;], float(f.get(&#39;score&#39;,0)))) db.commit() return redirect(url_for(&#39;scores&#39;)) return render_template(&#39;score_form.html&#39;, score=None) @app.route(&#39;/scores/delete/&lt;int:id&gt;&#39;, methods=[&#39;POST&#39;]) def delete_score(id): db = get_db() db.execute(&#39;DELETE FROM scores WHERE id=?&#39;, (id,)) db.commit() return redirect(url_for(&#39;scores&#39;)) # Stats @app.route(&#39;/stats&#39;) def stats(): sid = request.args.get(&#39;sid&#39;) db = get_db() if not sid: return render_template(&#39;stats.html&#39;, sid=None, stats=None) # calculate avg, total credits passed cur = db.execute(&#39;SELECT score, scid FROM scores WHERE ssid=?&#39;, (sid,)) rows = cur.fetchall() if not rows: return render_template(&#39;stats.html&#39;, sid=sid, stats=None) total = 0.0 cnt = 0 credits = 0.0 for r in rows: total &#43;= r[&#39;score&#39;] cnt &#43;= 1 if r[&#39;score&#39;] &gt;= 60: c = db.execute(&#39;SELECT credit FROM courses WHERE sid=? AND cid=?&#39;, (sid, r[&#39;scid&#39;])).fetchone() if c: credits &#43;= c[&#39;credit&#39;] avg = total / cnt if cnt else 0 return render_template(&#39;stats.html&#39;, sid=sid, stats={&#39;avg&#39;:avg,&#39;credits&#39;:credits,&#39;count&#39;:cnt}) # Course ranking @app.route(&#39;/rank/&lt;cid&gt;&#39;) def rank(cid): db = get_db() cur = db.execute(&#39;SELECT sname, score FROM scores WHERE scid=? ORDER BY score DESC&#39;, (cid,)) rows = cur.fetchall() return render_template(&#39;rank.html&#39;, cid=cid, rows=rows) if __name__ == &#39;__main__&#39;: app.run(host=&#39;127.0.0.1&#39;, port=5000, debug=True) 是用flask搭的 代码不详说，就是一个非常简单的项目，.db文件是数据库，用的sqlite，打开试试，在5000端口跑起来">
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "文章",
-      "item": "https://lewis1766.github.io/posts/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "GitHub Copilot CLI 体验",
-      "item": "https://lewis1766.github.io/posts/20260519/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "GitHub Copilot CLI 体验",
-  "name": "GitHub Copilot CLI 体验",
-  "description": "前言 最近在 GitHub 学生包里发现了一个好东西——GitHub Copilot CLI\u0026hellip;\nCopilot CLI 听说这个产品是 Claude Code 的竞品，刚看新闻说微软让员工从Claude Code转用它\n正好对比体验一下\n大一 C 语言实践作业 翻到之前大一的 C 语言作业——学生管理系统\u0026hellip;\n当时懵懂无知，完全不懂什么是 agent\u0026hellip;\n用 DeepSeek 改了又改，虽然（but still）仍然不会古法编程\u0026hellip;\n现在用 Copilot CLI，几分钟就能写好，完全不用手。\n搭一个网页版吧 核心代码 from flask import Flask, g, render_template, request, redirect, url_for import sqlite3 import os BASE_DIR = os.path.dirname(__file__) DB_PATH = os.path.join(BASE_DIR, \u0026#39;student.db\u0026#39;) app = Flask(__name__, instance_path=BASE_DIR) def get_db(): db = getattr(g, \u0026#39;_database\u0026#39;, None) if db is None: db = g._database = sqlite3.connect(DB_PATH) db.row_factory = sqlite3.Row return db def init_db(): db = get_db() cur = db.cursor() cur.execute(\u0026#39;\u0026#39;\u0026#39; CREATE TABLE IF NOT EXISTS students ( id TEXT PRIMARY KEY, name TEXT, gender TEXT, birth TEXT, address TEXT, phone TEXT, email TEXT ) \u0026#39;\u0026#39;\u0026#39;) cur.execute(\u0026#39;\u0026#39;\u0026#39; CREATE TABLE IF NOT EXISTS courses ( id INTEGER PRIMARY KEY AUTOINCREMENT, sid TEXT, cid TEXT, name TEXT, credit REAL ) \u0026#39;\u0026#39;\u0026#39;) cur.execute(\u0026#39;\u0026#39;\u0026#39; CREATE TABLE IF NOT EXISTS scores ( id INTEGER PRIMARY KEY AUTOINCREMENT, ssid TEXT, sname TEXT, scid TEXT, cname TEXT, score REAL ) \u0026#39;\u0026#39;\u0026#39;) db.commit() @app.teardown_appcontext def close_connection(exception): db = getattr(g, \u0026#39;_database\u0026#39;, None) if db is not None: db.close() with app.app_context(): init_db() @app.route(\u0026#39;/\u0026#39;) def index(): return render_template(\u0026#39;index.html\u0026#39;) # Students @app.route(\u0026#39;/students\u0026#39;) def students(): db = get_db() cur = db.execute(\u0026#39;SELECT * FROM students ORDER BY id\u0026#39;) rows = cur.fetchall() return render_template(\u0026#39;students.html\u0026#39;, students=rows) @app.route(\u0026#39;/students/add\u0026#39;, methods=[\u0026#39;GET\u0026#39;, \u0026#39;POST\u0026#39;]) def add_student(): if request.method == \u0026#39;POST\u0026#39;: form = request.form db = get_db() try: db.execute(\u0026#39;INSERT INTO students(id,name,gender,birth,address,phone,email) VALUES (?,?,?,?,?,?,?)\u0026#39;, (form[\u0026#39;id\u0026#39;], form[\u0026#39;name\u0026#39;], form.get(\u0026#39;gender\u0026#39;,\u0026#39;\u0026#39;), form.get(\u0026#39;birth\u0026#39;,\u0026#39;\u0026#39;), form.get(\u0026#39;address\u0026#39;,\u0026#39;\u0026#39;), form.get(\u0026#39;phone\u0026#39;,\u0026#39;\u0026#39;), form.get(\u0026#39;email\u0026#39;,\u0026#39;\u0026#39;))) db.commit() except sqlite3.IntegrityError: return \u0026#39;学号已存在\u0026#39;, 400 return redirect(url_for(\u0026#39;students\u0026#39;)) return render_template(\u0026#39;student_form.html\u0026#39;, student=None) @app.route(\u0026#39;/students/edit/\u0026lt;sid\u0026gt;\u0026#39;, methods=[\u0026#39;GET\u0026#39;,\u0026#39;POST\u0026#39;]) def edit_student(sid): db = get_db() if request.method == \u0026#39;POST\u0026#39;: form = request.form db.execute(\u0026#39;UPDATE students SET id=?,name=?,gender=?,birth=?,address=?,phone=?,email=? WHERE id=?\u0026#39;, (form[\u0026#39;id\u0026#39;], form[\u0026#39;name\u0026#39;], form.get(\u0026#39;gender\u0026#39;,\u0026#39;\u0026#39;), form.get(\u0026#39;birth\u0026#39;,\u0026#39;\u0026#39;), form.get(\u0026#39;address\u0026#39;,\u0026#39;\u0026#39;), form.get(\u0026#39;phone\u0026#39;,\u0026#39;\u0026#39;), form.get(\u0026#39;email\u0026#39;,\u0026#39;\u0026#39;), sid)) db.commit() return redirect(url_for(\u0026#39;students\u0026#39;)) cur = db.execute(\u0026#39;SELECT * FROM students WHERE id=?\u0026#39;, (sid,)) student = cur.fetchone() return render_template(\u0026#39;student_form.html\u0026#39;, student=student) @app.route(\u0026#39;/students/delete/\u0026lt;sid\u0026gt;\u0026#39;, methods=[\u0026#39;POST\u0026#39;]) def delete_student(sid): db = get_db() db.execute(\u0026#39;DELETE FROM students WHERE id=?\u0026#39;, (sid,)) db.execute(\u0026#39;DELETE FROM courses WHERE sid=?\u0026#39;, (sid,)) db.execute(\u0026#39;DELETE FROM scores WHERE ssid=?\u0026#39;, (sid,)) db.commit() return redirect(url_for(\u0026#39;students\u0026#39;)) # Courses @app.route(\u0026#39;/courses\u0026#39;) def courses(): db = get_db() cur = db.execute(\u0026#39;SELECT * FROM courses ORDER BY sid, cid\u0026#39;) rows = cur.fetchall() return render_template(\u0026#39;courses.html\u0026#39;, courses=rows) @app.route(\u0026#39;/courses/add\u0026#39;, methods=[\u0026#39;GET\u0026#39;,\u0026#39;POST\u0026#39;]) def add_course(): if request.method == \u0026#39;POST\u0026#39;: f = request.form db = get_db() db.execute(\u0026#39;INSERT INTO courses(sid,cid,name,credit) VALUES (?,?,?,?)\u0026#39;, (f[\u0026#39;sid\u0026#39;], f[\u0026#39;cid\u0026#39;], f[\u0026#39;name\u0026#39;], float(f.get(\u0026#39;credit\u0026#39;,0)))) db.commit() return redirect(url_for(\u0026#39;courses\u0026#39;)) return render_template(\u0026#39;course_form.html\u0026#39;, course=None) @app.route(\u0026#39;/courses/delete/\u0026lt;int:id\u0026gt;\u0026#39;, methods=[\u0026#39;POST\u0026#39;]) def delete_course(id): db = get_db() # delete related scores cur = db.execute(\u0026#39;SELECT sid,cid,name FROM courses WHERE id=?\u0026#39;, (id,)) row = cur.fetchone() if row: db.execute(\u0026#39;DELETE FROM scores WHERE scid=? AND ssid=?\u0026#39;, (row[\u0026#39;cid\u0026#39;], row[\u0026#39;sid\u0026#39;])) db.execute(\u0026#39;DELETE FROM courses WHERE id=?\u0026#39;, (id,)) db.commit() return redirect(url_for(\u0026#39;courses\u0026#39;)) # Scores @app.route(\u0026#39;/scores\u0026#39;) def scores(): db = get_db() cur = db.execute(\u0026#39;SELECT * FROM scores ORDER BY ssid\u0026#39;) rows = cur.fetchall() return render_template(\u0026#39;scores.html\u0026#39;, scores=rows) @app.route(\u0026#39;/scores/add\u0026#39;, methods=[\u0026#39;GET\u0026#39;,\u0026#39;POST\u0026#39;]) def add_score(): if request.method == \u0026#39;POST\u0026#39;: f = request.form db = get_db() db.execute(\u0026#39;INSERT INTO scores(ssid,sname,scid,cname,score) VALUES (?,?,?,?,?)\u0026#39;, (f[\u0026#39;ssid\u0026#39;], f[\u0026#39;sname\u0026#39;], f[\u0026#39;scid\u0026#39;], f[\u0026#39;cname\u0026#39;], float(f.get(\u0026#39;score\u0026#39;,0)))) db.commit() return redirect(url_for(\u0026#39;scores\u0026#39;)) return render_template(\u0026#39;score_form.html\u0026#39;, score=None) @app.route(\u0026#39;/scores/delete/\u0026lt;int:id\u0026gt;\u0026#39;, methods=[\u0026#39;POST\u0026#39;]) def delete_score(id): db = get_db() db.execute(\u0026#39;DELETE FROM scores WHERE id=?\u0026#39;, (id,)) db.commit() return redirect(url_for(\u0026#39;scores\u0026#39;)) # Stats @app.route(\u0026#39;/stats\u0026#39;) def stats(): sid = request.args.get(\u0026#39;sid\u0026#39;) db = get_db() if not sid: return render_template(\u0026#39;stats.html\u0026#39;, sid=None, stats=None) # calculate avg, total credits passed cur = db.execute(\u0026#39;SELECT score, scid FROM scores WHERE ssid=?\u0026#39;, (sid,)) rows = cur.fetchall() if not rows: return render_template(\u0026#39;stats.html\u0026#39;, sid=sid, stats=None) total = 0.0 cnt = 0 credits = 0.0 for r in rows: total += r[\u0026#39;score\u0026#39;] cnt += 1 if r[\u0026#39;score\u0026#39;] \u0026gt;= 60: c = db.execute(\u0026#39;SELECT credit FROM courses WHERE sid=? AND cid=?\u0026#39;, (sid, r[\u0026#39;scid\u0026#39;])).fetchone() if c: credits += c[\u0026#39;credit\u0026#39;] avg = total / cnt if cnt else 0 return render_template(\u0026#39;stats.html\u0026#39;, sid=sid, stats={\u0026#39;avg\u0026#39;:avg,\u0026#39;credits\u0026#39;:credits,\u0026#39;count\u0026#39;:cnt}) # Course ranking @app.route(\u0026#39;/rank/\u0026lt;cid\u0026gt;\u0026#39;) def rank(cid): db = get_db() cur = db.execute(\u0026#39;SELECT sname, score FROM scores WHERE scid=? ORDER BY score DESC\u0026#39;, (cid,)) rows = cur.fetchall() return render_template(\u0026#39;rank.html\u0026#39;, cid=cid, rows=rows) if __name__ == \u0026#39;__main__\u0026#39;: app.run(host=\u0026#39;127.0.0.1\u0026#39;, port=5000, debug=True) 是用flask搭的 代码不详说，就是一个非常简单的项目，.db文件是数据库，用的sqlite，打开试试，在5000端口跑起来 ",
-  "keywords": [
-    "Copilot", "AI", "GitHub"
-  ],
-  "articleBody": "前言 最近在 GitHub 学生包里发现了一个好东西——GitHub Copilot CLI…\nCopilot CLI 听说这个产品是 Claude Code 的竞品，刚看新闻说微软让员工从Claude Code转用它\n正好对比体验一下\n大一 C 语言实践作业 翻到之前大一的 C 语言作业——学生管理系统…\n当时懵懂无知，完全不懂什么是 agent…\n用 DeepSeek 改了又改，虽然（but still）仍然不会古法编程…\n现在用 Copilot CLI，几分钟就能写好，完全不用手。\n搭一个网页版吧 核心代码 from flask import Flask, g, render_template, request, redirect, url_for import sqlite3 import os BASE_DIR = os.path.dirname(__file__) DB_PATH = os.path.join(BASE_DIR, 'student.db') app = Flask(__name__, instance_path=BASE_DIR) def get_db(): db = getattr(g, '_database', None) if db is None: db = g._database = sqlite3.connect(DB_PATH) db.row_factory = sqlite3.Row return db def init_db(): db = get_db() cur = db.cursor() cur.execute(''' CREATE TABLE IF NOT EXISTS students ( id TEXT PRIMARY KEY, name TEXT, gender TEXT, birth TEXT, address TEXT, phone TEXT, email TEXT ) ''') cur.execute(''' CREATE TABLE IF NOT EXISTS courses ( id INTEGER PRIMARY KEY AUTOINCREMENT, sid TEXT, cid TEXT, name TEXT, credit REAL ) ''') cur.execute(''' CREATE TABLE IF NOT EXISTS scores ( id INTEGER PRIMARY KEY AUTOINCREMENT, ssid TEXT, sname TEXT, scid TEXT, cname TEXT, score REAL ) ''') db.commit() @app.teardown_appcontext def close_connection(exception): db = getattr(g, '_database', None) if db is not None: db.close() with app.app_context(): init_db() @app.route('/') def index(): return render_template('index.html') # Students @app.route('/students') def students(): db = get_db() cur = db.execute('SELECT * FROM students ORDER BY id') rows = cur.fetchall() return render_template('students.html', students=rows) @app.route('/students/add', methods=['GET', 'POST']) def add_student(): if request.method == 'POST': form = request.form db = get_db() try: db.execute('INSERT INTO students(id,name,gender,birth,address,phone,email) VALUES (?,?,?,?,?,?,?)', (form['id'], form['name'], form.get('gender',''), form.get('birth',''), form.get('address',''), form.get('phone',''), form.get('email',''))) db.commit() except sqlite3.IntegrityError: return '学号已存在', 400 return redirect(url_for('students')) return render_template('student_form.html', student=None) @app.route('/students/edit/', methods=['GET','POST']) def edit_student(sid): db = get_db() if request.method == 'POST': form = request.form db.execute('UPDATE students SET id=?,name=?,gender=?,birth=?,address=?,phone=?,email=? WHERE id=?', (form['id'], form['name'], form.get('gender',''), form.get('birth',''), form.get('address',''), form.get('phone',''), form.get('email',''), sid)) db.commit() return redirect(url_for('students')) cur = db.execute('SELECT * FROM students WHERE id=?', (sid,)) student = cur.fetchone() return render_template('student_form.html', student=student) @app.route('/students/delete/', methods=['POST']) def delete_student(sid): db = get_db() db.execute('DELETE FROM students WHERE id=?', (sid,)) db.execute('DELETE FROM courses WHERE sid=?', (sid,)) db.execute('DELETE FROM scores WHERE ssid=?', (sid,)) db.commit() return redirect(url_for('students')) # Courses @app.route('/courses') def courses(): db = get_db() cur = db.execute('SELECT * FROM courses ORDER BY sid, cid') rows = cur.fetchall() return render_template('courses.html', courses=rows) @app.route('/courses/add', methods=['GET','POST']) def add_course(): if request.method == 'POST': f = request.form db = get_db() db.execute('INSERT INTO courses(sid,cid,name,credit) VALUES (?,?,?,?)', (f['sid'], f['cid'], f['name'], float(f.get('credit',0)))) db.commit() return redirect(url_for('courses')) return render_template('course_form.html', course=None) @app.route('/courses/delete/', methods=['POST']) def delete_course(id): db = get_db() # delete related scores cur = db.execute('SELECT sid,cid,name FROM courses WHERE id=?', (id,)) row = cur.fetchone() if row: db.execute('DELETE FROM scores WHERE scid=? AND ssid=?', (row['cid'], row['sid'])) db.execute('DELETE FROM courses WHERE id=?', (id,)) db.commit() return redirect(url_for('courses')) # Scores @app.route('/scores') def scores(): db = get_db() cur = db.execute('SELECT * FROM scores ORDER BY ssid') rows = cur.fetchall() return render_template('scores.html', scores=rows) @app.route('/scores/add', methods=['GET','POST']) def add_score(): if request.method == 'POST': f = request.form db = get_db() db.execute('INSERT INTO scores(ssid,sname,scid,cname,score) VALUES (?,?,?,?,?)', (f['ssid'], f['sname'], f['scid'], f['cname'], float(f.get('score',0)))) db.commit() return redirect(url_for('scores')) return render_template('score_form.html', score=None) @app.route('/scores/delete/', methods=['POST']) def delete_score(id): db = get_db() db.execute('DELETE FROM scores WHERE id=?', (id,)) db.commit() return redirect(url_for('scores')) # Stats @app.route('/stats') def stats(): sid = request.args.get('sid') db = get_db() if not sid: return render_template('stats.html', sid=None, stats=None) # calculate avg, total credits passed cur = db.execute('SELECT score, scid FROM scores WHERE ssid=?', (sid,)) rows = cur.fetchall() if not rows: return render_template('stats.html', sid=sid, stats=None) total = 0.0 cnt = 0 credits = 0.0 for r in rows: total += r['score'] cnt += 1 if r['score'] \u003e= 60: c = db.execute('SELECT credit FROM courses WHERE sid=? AND cid=?', (sid, r['scid'])).fetchone() if c: credits += c['credit'] avg = total / cnt if cnt else 0 return render_template('stats.html', sid=sid, stats={'avg':avg,'credits':credits,'count':cnt}) # Course ranking @app.route('/rank/') def rank(cid): db = get_db() cur = db.execute('SELECT sname, score FROM scores WHERE scid=? ORDER BY score DESC', (cid,)) rows = cur.fetchall() return render_template('rank.html', cid=cid, rows=rows) if __name__ == '__main__': app.run(host='127.0.0.1', port=5000, debug=True) 是用flask搭的 代码不详说，就是一个非常简单的项目，.db文件是数据库，用的sqlite，打开试试，在5000端口跑起来 优雅且流畅，不禁感慨AI可以取代多少之前人工的工作，从有这个想法到落地实现这个项目仅用了20分钟不到。。。 但是在想想，以后最重要的可能就是那个想法。。。\nClaude Code 最近通过Vidar的老学长搞到了ClaudeCode的key，每天有一些额度，正好让我这个穷人体验一下。\n感受 目前的感受是快，比那个垃圾的Copilot不知道准确了多少，降低了不少重复工作\n本人还在使用中，等我之后的文章详细说说，以后他就是主力了\n",
-  "wordCount" : "626",
-  "inLanguage": "en",
-  "datePublished": "2026-05-19T12:51:58+08:00",
-  "dateModified": "2026-05-19T12:51:58+08:00",
-  "author":{
-    "@type": "Person",
-    "name": "Lewis"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://lewis1766.github.io/posts/20260519/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Lewis 的博客",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://lewis1766.github.io/favicon.ico"
-    }
-  }
-}
 </script>
 </head>
 <body id="top">
     <header class="header">
     <nav class="header-nav">
         <div class="logo">
-            <a href="https://lewis1766.github.io/" accesskey="h" title="Lewis 的博客 (Alt + H)">Lewis 的博客</a>
+            <a href="http://localhost:1313/" accesskey="h" title="Lewis 的博客 (Alt + H)">Lewis 的博客</a>
             <div class="logo-switches">
                 <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
@@ -395,27 +311,27 @@ Copilot CLI 听说这个产品是 Claude Code 的竞品，刚看新闻说微软�
         </div>
         <ul id="menu" class="menu">
             <li>
-                <a href="https://lewis1766.github.io/" title="主页">
+                <a href="http://localhost:1313/" title="主页">
                     <span>主页</span>
                 </a>
             </li>
             <li>
-                <a href="https://lewis1766.github.io/posts/" title="文章">
+                <a href="http://localhost:1313/posts/" title="文章">
                     <span>文章</span>
                 </a>
             </li>
             <li>
-                <a href="https://lewis1766.github.io/tags/" title="标签">
+                <a href="http://localhost:1313/tags/" title="标签">
                     <span>标签</span>
                 </a>
             </li>
             <li>
-                <a href="https://lewis1766.github.io/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                <a href="http://localhost:1313/search/" title="搜索 (Alt &#43; /)" accesskey=/>
                     <span>搜索</span>
                 </a>
             </li>
             <li>
-                <a href="https://lewis1766.github.io/about/" title="关于">
+                <a href="http://localhost:1313/about/" title="关于">
                     <span>关于</span>
                 </a>
             </li>
@@ -667,14 +583,18 @@ Copilot CLI 听说这个产品是 Claude Code 的竞品，刚看新闻说微软�
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="https://lewis1766.github.io/tags/copilot/">Copilot</a></li>
-      <li><a href="https://lewis1766.github.io/tags/ai/">AI</a></li>
-      <li><a href="https://lewis1766.github.io/tags/github/">GitHub</a></li>
+      <li><a href="http://localhost:1313/tags/copilot/">Copilot</a></li>
+      <li><a href="http://localhost:1313/tags/ai/">AI</a></li>
+      <li><a href="http://localhost:1313/tags/github/">GitHub</a></li>
     </ul>
 <nav class="paginav">
-  <a class="next" href="https://lewis1766.github.io/posts/my-first-post/">
+  <a class="prev" href="http://localhost:1313/posts/20260601/">
+    <span class="title">« 上一页</span>
+    <span>一次对学校内网的渗透</span>
+  </a>
+  <a class="next" href="http://localhost:1313/posts/20260504/20260504/">
     <span class="title">下一页 »</span>
-    <span>第一篇文章</span>
+    <span>挖到第一个漏洞：杭州鼎文国际学校API未授权访问</span>
   </a>
 </nav>
 
@@ -683,7 +603,7 @@ Copilot CLI 听说这个产品是 Claude Code 的竞品，刚看新闻说微软�
     </main>
     
 <footer class="footer">
-        <span>&copy; 2026 <a href="https://lewis1766.github.io/">Lewis 的博客</a></span> · 
+        <span>&copy; 2026 <a href="http://localhost:1313/">Lewis 的博客</a></span> · 
 
     <span>
         Powered by
