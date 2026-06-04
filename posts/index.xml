@@ -23,7 +23,8 @@
 &lt;p&gt;| &lt;code&gt;/heapdump&lt;/code&gt; | 严重 - 可下载堆转储文件 |&lt;/p&gt;
 &lt;p&gt;| &lt;code&gt;/env&lt;/code&gt; | 严重 - 泄露环境变量配置 |&lt;/p&gt;
 &lt;p&gt;&lt;img alt=&#34;heapdump&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/heapdump.png&#34;&gt;&lt;/p&gt;
-&lt;p&gt;直接访问断点，得到heapdump文件和env配置，使用jdumpspider分析一下，这个工具用来springboot内存取证简单好用，本质就是一个提取关键字的脚本。比较初步的分析就不必惊动EclipseMemoryAnalyzer了。
+&lt;p&gt;直接访问断点，得到heapdump文件和env配置，使用jdumpspider分析一下，这个工具用来springboot内存取证简单好用，本质就是一个提取关键字的脚本。比较初步的分析就不必惊动EclipseMemoryAnalyzer了。我整理了一下所有泄露的信息。
+&lt;img alt=&#34;page&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/page.png&#34;&gt;
 &lt;img alt=&#34;jdumpspider&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/jdumpspider.png&#34;&gt;
 &lt;img alt=&#34;cmd&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/cmd.png&#34;&gt;
 &lt;img alt=&#34;发现专利局帐密&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/%E5%8F%91%E7%8E%B0%E4%B8%93%E5%88%A9%E5%B1%80%E5%B8%90%E5%AF%86.png&#34;&gt;&lt;/p&gt;
@@ -33,7 +34,17 @@
 发现弱密码：和wifi密码相同，为门牌号输三次
 成功登入管理界面
 &lt;img alt=&#34;admin&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/admin.png&#34;&gt;
-未完待续&amp;hellip;&lt;/p&gt;</description>
+看配置
+&lt;img alt=&#34;config&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/config.png&#34;&gt;
+这里的手动设置显示的是路由器的身份，说明了他们是如何接入校园网的
+10.4.175.87试了一下，403，这个网关底下应该有好几个重要资产
+dns服务器防线也很深&lt;/p&gt;
+&lt;p&gt;还有一个有意思的点，之前的那个专利申请系统不止192.168.5.15，还有很多ip，但是有时候我扫描不到。我想了好久。因为一个专利申请服务器怎么会时断时续的开着，并且在办公室里并没有发现物理服务器。
+今天在路由器的连接设备界面看到了192.168.5.15，恍然大悟，这是一台个人电脑，服务器是在他们电脑自己上，估计是他们用的这个专利申请软件有大问题，为什么会在内网暴露heapdump和env，这个问题之后再研究
+&lt;img alt=&#34;devices&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/devices.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;看到华为智慧互联开启，看来是使用这个手段实现各办公室网络无缝衔接的
+&lt;img alt=&#34;zhilian&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/zhilian.png&#34;&gt;
+并且暴露了组网密码，我想可不可以利用这个密码欺骗其他路由器，自己搞一个假的路由器，这样华为的互联策略会以为他是“自己人”。待我抽时间研究一下这个华为智慧互联吧&lt;/p&gt;</description>
     </item>
     <item>
       <title>GitHub Copilot CLI 体验</title>
