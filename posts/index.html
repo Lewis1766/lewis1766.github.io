@@ -227,6 +227,27 @@ Copilot CLI 听说这个产品是 Claude Code 的竞品，刚看新闻说微软�
   <footer class="entry-footer"><span title='2026-04-17 16:00:42 +0800 CST'>April 17, 2026</span>&nbsp;·&nbsp;<span>1 分钟</span>&nbsp;·&nbsp;<span>Lewis</span></footer>
   <a class="entry-link" aria-label="post link to 第一篇文章" href="https://lewis1766.github.io/posts/my-first-post/"></a>
 </article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Zip伪加密 &#43; DLL调用逆向题解
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>题目描述 下载附件得到一个加密的 Zip 压缩包，需要密码才能解压。
+解题思路 用 010 Editor 打开 Zip 文件，分析 Zip 文件结构。
+Zip 文件结构要点 压缩源文件数据区 50 4B 03 04 头文件标记
+压缩源文件目录区 50 4B 01 02 目录文件头标记
+压缩源文件目录结束标志 50 4B 05 06 目录结束标记
+全局方式位标记 50 4B 03 04 14 00 **后 2 字节** | 数据区加密标记 |
+50 4B 01 02 14 00 **后 2 字节** | 目录区加密标记 |
+判断标准 无加密 00 00 00 00
+伪加密 00 00 09 00（或 01 00）
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-11-06 21:54:33 +0800 CST'>November 6, 2025</span>&nbsp;·&nbsp;<span>1 分钟</span>&nbsp;·&nbsp;<span>Lewis</span></footer>
+  <a class="entry-link" aria-label="post link to Zip伪加密 &#43; DLL调用逆向题解" href="https://lewis1766.github.io/posts/20251106/"></a>
+</article>
     </main>
     
 <footer class="footer">

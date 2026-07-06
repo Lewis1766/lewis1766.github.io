@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Tags | Lewis 的博客</title>
+<title>CTF | Lewis 的博客</title>
 <meta name="keywords" content="">
 <meta name="description" content="欢迎来到我的个人博客">
 <meta name="author" content="Lewis">
-<link rel="canonical" href="https://lewis1766.github.io/tags/">
+<link rel="canonical" href="https://lewis1766.github.io/tags/ctf/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.9e010bc22ef5794c0560b82f657f315607f24d8b05e0088e95b900c22246f5c0.css" integrity="sha256-ngELwi71eUwFYLgvZX8xVgfyTYsF4AiOlbkAwiJG9cA=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://lewis1766.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://lewis1766.github.io/favicon-16x16.png">
@@ -18,8 +18,8 @@
 <link rel="mask-icon" href="https://lewis1766.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://lewis1766.github.io/tags/index.xml" title="rss">
-<link rel="alternate" hreflang="en" href="https://lewis1766.github.io/tags/">
+<link rel="alternate" type="application/rss+xml" href="https://lewis1766.github.io/tags/ctf/index.xml" title="rss">
+<link rel="alternate" hreflang="en" href="https://lewis1766.github.io/tags/ctf/">
 <noscript>
     <style>
         #theme-toggle,
@@ -65,15 +65,15 @@
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://lewis1766.github.io/tags/">
+</script><meta property="og:url" content="https://lewis1766.github.io/tags/ctf/">
   <meta property="og:site_name" content="Lewis 的博客">
-  <meta property="og:title" content="Tags">
+  <meta property="og:title" content="CTF">
   <meta property="og:description" content="欢迎来到我的个人博客">
   <meta property="og:locale" content="zh">
   <meta property="og:type" content="website">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Tags">
+  <meta name="twitter:title" content="CTF">
   <meta name="twitter:description" content="欢迎来到我的个人博客">
 
 </head>
@@ -118,7 +118,7 @@
             </li>
             <li>
                 <a href="https://lewis1766.github.io/tags/" title="标签">
-                    <span class="active">标签</span>
+                    <span>标签</span>
                 </a>
             </li>
             <li>
@@ -134,34 +134,33 @@
         </ul>
     </nav>
 </header>
-<main class="main">
+<main class="main"> 
 <header class="page-header">
-    <h1>Tags</h1>
+  <h1>
+    CTF
+  </h1>
 </header>
 
-<ul class="terms-tags">
-    <li>
-        <a href="https://lewis1766.github.io/tags/ai/">AI <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://lewis1766.github.io/tags/copilot/">Copilot <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://lewis1766.github.io/tags/ctf/">CTF <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://lewis1766.github.io/tags/github/">GitHub <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://lewis1766.github.io/tags/zip%E4%BC%AA%E5%8A%A0%E5%AF%86/">Zip伪加密 <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://lewis1766.github.io/tags/%E6%B8%97%E9%80%8F/">渗透 <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://lewis1766.github.io/tags/%E6%BC%8F%E6%B4%9E/">漏洞 <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-</ul>
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Zip伪加密 &#43; DLL调用逆向题解
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>题目描述 下载附件得到一个加密的 Zip 压缩包，需要密码才能解压。
+解题思路 用 010 Editor 打开 Zip 文件，分析 Zip 文件结构。
+Zip 文件结构要点 压缩源文件数据区 50 4B 03 04 头文件标记
+压缩源文件目录区 50 4B 01 02 目录文件头标记
+压缩源文件目录结束标志 50 4B 05 06 目录结束标记
+全局方式位标记 50 4B 03 04 14 00 **后 2 字节** | 数据区加密标记 |
+50 4B 01 02 14 00 **后 2 字节** | 目录区加密标记 |
+判断标准 无加密 00 00 00 00
+伪加密 00 00 09 00（或 01 00）
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-11-06 21:54:33 +0800 CST'>November 6, 2025</span>&nbsp;·&nbsp;<span>1 分钟</span>&nbsp;·&nbsp;<span>Lewis</span></footer>
+  <a class="entry-link" aria-label="post link to Zip伪加密 &#43; DLL调用逆向题解" href="https://lewis1766.github.io/posts/20251106/"></a>
+</article>
     </main>
     
 <footer class="footer">

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>CTF on Lewis 的博客</title>
+    <link>https://lewis1766.github.io/tags/ctf/</link>
+    <description>Recent content in CTF on Lewis 的博客</description>
+    <generator>Hugo</generator>
+    <language>zh</language>
+    <lastBuildDate>Thu, 06 Nov 2025 21:54:33 +0800</lastBuildDate>
+    <atom:link href="https://lewis1766.github.io/tags/ctf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Zip伪加密 &#43; DLL调用逆向题解</title>
+      <link>https://lewis1766.github.io/posts/20251106/</link>
+      <pubDate>Thu, 06 Nov 2025 21:54:33 +0800</pubDate>
+      <guid>https://lewis1766.github.io/posts/20251106/</guid>
+      <description>&lt;h2 id=&#34;题目描述&#34;&gt;题目描述&lt;/h2&gt;
+&lt;p&gt;下载附件得到一个加密的 Zip 压缩包，需要密码才能解压。&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;Zip&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/zip.png&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;解题思路&#34;&gt;解题思路&lt;/h2&gt;
+&lt;p&gt;用 010 Editor 打开 Zip 文件，分析 Zip 文件结构。&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;图片2&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/%E5%9B%BE%E7%89%872.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;图片3&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/%E5%9B%BE%E7%89%873.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;图片4&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/%E5%9B%BE%E7%89%874.png&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;zip-文件结构要点&#34;&gt;Zip 文件结构要点&lt;/h2&gt;
+&lt;p&gt;压缩源文件数据区  &lt;code&gt;50 4B 03 04&lt;/code&gt;  头文件标记&lt;/p&gt;
+&lt;p&gt;压缩源文件目录区  &lt;code&gt;50 4B 01 02&lt;/code&gt;  目录文件头标记&lt;/p&gt;
+&lt;p&gt;压缩源文件目录结束标志 &lt;code&gt;50 4B 05 06&lt;/code&gt;  目录结束标记&lt;/p&gt;
+&lt;h2 id=&#34;全局方式位标记&#34;&gt;全局方式位标记&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;50 4B 03 04 14 00&lt;/code&gt; **后 2 字节** | 数据区加密标记 |&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;50 4B 01 02 14 00&lt;/code&gt; **后 2 字节** | 目录区加密标记 |&lt;/p&gt;
+&lt;h2 id=&#34;判断标准&#34;&gt;判断标准&lt;/h2&gt;
+&lt;p&gt; 无加密  &lt;code&gt;00 00&lt;/code&gt;  &lt;code&gt;00 00&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt; 伪加密  &lt;code&gt;00 00&lt;/code&gt;  &lt;code&gt;09 00&lt;/code&gt;（或 &lt;code&gt;01 00&lt;/code&gt;）&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -5,11 +5,28 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>第一篇文章 | Lewis 的博客</title>
-<meta name="keywords" content="">
-<meta name="description" content="欢迎来到我的网站！">
+<title>Zip伪加密 &#43; DLL调用逆向题解 | Lewis 的博客</title>
+<meta name="keywords" content="CTF, Zip伪加密">
+<meta name="description" content="题目描述
+下载附件得到一个加密的 Zip 压缩包，需要密码才能解压。
+
+解题思路
+用 010 Editor 打开 Zip 文件，分析 Zip 文件结构。
+
+
+
+Zip 文件结构要点
+压缩源文件数据区  50 4B 03 04  头文件标记
+压缩源文件目录区  50 4B 01 02  目录文件头标记
+压缩源文件目录结束标志 50 4B 05 06  目录结束标记
+全局方式位标记
+50 4B 03 04 14 00 **后 2 字节** | 数据区加密标记 |
+50 4B 01 02 14 00 **后 2 字节** | 目录区加密标记 |
+判断标准
+ 无加密  00 00  00 00
+ 伪加密  00 00  09 00（或 01 00）">
 <meta name="author" content="Lewis">
-<link rel="canonical" href="https://lewis1766.github.io/posts/my-first-post/">
+<link rel="canonical" href="https://lewis1766.github.io/posts/20251106/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.9e010bc22ef5794c0560b82f657f315607f24d8b05e0088e95b900c22246f5c0.css" integrity="sha256-ngELwi71eUwFYLgvZX8xVgfyTYsF4AiOlbkAwiJG9cA=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://lewis1766.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://lewis1766.github.io/favicon-16x16.png">
@@ -18,7 +35,7 @@
 <link rel="mask-icon" href="https://lewis1766.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://lewis1766.github.io/posts/my-first-post/">
+<link rel="alternate" hreflang="en" href="https://lewis1766.github.io/posts/20251106/">
 <noscript>
     <style>
         #theme-toggle,
@@ -64,19 +81,37 @@
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://lewis1766.github.io/posts/my-first-post/">
+</script><meta property="og:url" content="https://lewis1766.github.io/posts/20251106/">
   <meta property="og:site_name" content="Lewis 的博客">
-  <meta property="og:title" content="第一篇文章">
-  <meta property="og:description" content="欢迎来到我的网站！">
+  <meta property="og:title" content="Zip伪加密 &#43; DLL调用逆向题解">
+  <meta property="og:description" content="题目描述 下载附件得到一个加密的 Zip 压缩包，需要密码才能解压。
+解题思路 用 010 Editor 打开 Zip 文件，分析 Zip 文件结构。
+Zip 文件结构要点 压缩源文件数据区 50 4B 03 04 头文件标记
+压缩源文件目录区 50 4B 01 02 目录文件头标记
+压缩源文件目录结束标志 50 4B 05 06 目录结束标记
+全局方式位标记 50 4B 03 04 14 00 **后 2 字节** | 数据区加密标记 |
+50 4B 01 02 14 00 **后 2 字节** | 目录区加密标记 |
+判断标准 无加密 00 00 00 00
+伪加密 00 00 09 00（或 01 00）">
   <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2026-04-17T16:00:42+08:00">
-    <meta property="article:modified_time" content="2026-04-17T16:00:42+08:00">
+    <meta property="article:published_time" content="2025-11-06T21:54:33+08:00">
+    <meta property="article:modified_time" content="2025-11-06T21:54:33+08:00">
+    <meta property="article:tag" content="CTF">
+    <meta property="article:tag" content="Zip伪加密">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="第一篇文章">
-  <meta name="twitter:description" content="欢迎来到我的网站！">
+  <meta name="twitter:title" content="Zip伪加密 &#43; DLL调用逆向题解">
+  <meta name="twitter:description" content="题目描述 下载附件得到一个加密的 Zip 压缩包，需要密码才能解压。
+解题思路 用 010 Editor 打开 Zip 文件，分析 Zip 文件结构。
+Zip 文件结构要点 压缩源文件数据区 50 4B 03 04 头文件标记
+压缩源文件目录区 50 4B 01 02 目录文件头标记
+压缩源文件目录结束标志 50 4B 05 06 目录结束标记
+全局方式位标记 50 4B 03 04 14 00 **后 2 字节** | 数据区加密标记 |
+50 4B 01 02 14 00 **后 2 字节** | 目录区加密标记 |
+判断标准 无加密 00 00 00 00
+伪加密 00 00 09 00（或 01 00）">
 
 
 <script type="application/ld+json">
@@ -93,8 +128,8 @@
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "第一篇文章",
-      "item": "https://lewis1766.github.io/posts/my-first-post/"
+      "name": "Zip伪加密 + DLL调用逆向题解",
+      "item": "https://lewis1766.github.io/posts/20251106/"
     }
   ]
 }
@@ -103,24 +138,24 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "第一篇文章",
-  "name": "第一篇文章",
-  "description": "欢迎来到我的网站！\n",
+  "headline": "Zip伪加密 + DLL调用逆向题解",
+  "name": "Zip伪加密 \u002b DLL调用逆向题解",
+  "description": "题目描述 下载附件得到一个加密的 Zip 压缩包，需要密码才能解压。\n解题思路 用 010 Editor 打开 Zip 文件，分析 Zip 文件结构。\nZip 文件结构要点 压缩源文件数据区 50 4B 03 04 头文件标记\n压缩源文件目录区 50 4B 01 02 目录文件头标记\n压缩源文件目录结束标志 50 4B 05 06 目录结束标记\n全局方式位标记 50 4B 03 04 14 00 **后 2 字节** | 数据区加密标记 |\n50 4B 01 02 14 00 **后 2 字节** | 目录区加密标记 |\n判断标准 无加密 00 00 00 00\n伪加密 00 00 09 00（或 01 00）\n",
   "keywords": [
-    
+    "CTF", "Zip伪加密"
   ],
-  "articleBody": "欢迎来到我的网站！\n",
-  "wordCount" : "1",
+  "articleBody": "题目描述 下载附件得到一个加密的 Zip 压缩包，需要密码才能解压。\n解题思路 用 010 Editor 打开 Zip 文件，分析 Zip 文件结构。\nZip 文件结构要点 压缩源文件数据区 50 4B 03 04 头文件标记\n压缩源文件目录区 50 4B 01 02 目录文件头标记\n压缩源文件目录结束标志 50 4B 05 06 目录结束标记\n全局方式位标记 50 4B 03 04 14 00 **后 2 字节** | 数据区加密标记 |\n50 4B 01 02 14 00 **后 2 字节** | 目录区加密标记 |\n判断标准 无加密 00 00 00 00\n伪加密 00 00 09 00（或 01 00）\n真加密 | 09 00 09 00\n本题分析 本题可知是伪加密。\n改掉加密之后，我们得到了两个文件。其中一个是dll。结合题目名这是本题的关键。\n重要的是如何从dll文件中提取密钥。\ndll文件时应用程序的扩展，于是我们就要编写一个程序调用dll\n调用程序需要利用dll里的内置函数，于是我们要想办法拿到dll里的内置函数。\n可以利用vs2022自带的dumpbin来实现。\n输入命令dumpbin.exe /EXPORTS “C:\\Users\\asus\\Desktop\\Others\\CCB\\C!C!B!.dll\"得到\n内置函数CCB\n写程序调用ccb函数，详见ccb.py\n得到密钥b31915cd51e064bbaf8d6b2790ba108df10c84358f37033cb83609e78e9a3bfb\n顺利得到flag\n",
+  "wordCount" : "91",
   "inLanguage": "en",
-  "datePublished": "2026-04-17T16:00:42+08:00",
-  "dateModified": "2026-04-17T16:00:42+08:00",
+  "datePublished": "2025-11-06T21:54:33+08:00",
+  "dateModified": "2025-11-06T21:54:33+08:00",
   "author":{
     "@type": "Person",
     "name": "Lewis"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://lewis1766.github.io/posts/my-first-post/"
+    "@id": "https://lewis1766.github.io/posts/20251106/"
   },
   "publisher": {
     "@type": "Organization",
@@ -196,28 +231,58 @@
   <header class="post-header">
     
     <h1 class="post-title entry-hint-parent">
-      第一篇文章
+      Zip伪加密 &#43; DLL调用逆向题解
     </h1>
-    <div class="post-meta"><span title='2026-04-17 16:00:42 +0800 CST'>April 17, 2026</span>&nbsp;·&nbsp;<span>1 分钟</span>&nbsp;·&nbsp;<span>Lewis</span>
+    <div class="post-meta"><span title='2025-11-06 21:54:33 +0800 CST'>November 6, 2025</span>&nbsp;·&nbsp;<span>1 分钟</span>&nbsp;·&nbsp;<span>Lewis</span>
 
 </div>
   </header> 
-  <div class="post-content md-content"><p>欢迎来到我的网站！</p>
+  <div class="post-content md-content"><h2 id="题目描述">题目描述<a hidden class="anchor" aria-hidden="true" href="#题目描述">#</a></h2>
+<p>下载附件得到一个加密的 Zip 压缩包，需要密码才能解压。</p>
+<p><img alt="Zip" loading="lazy" src="/images/zip.png"></p>
+<h2 id="解题思路">解题思路<a hidden class="anchor" aria-hidden="true" href="#解题思路">#</a></h2>
+<p>用 010 Editor 打开 Zip 文件，分析 Zip 文件结构。</p>
+<p><img alt="图片2" loading="lazy" src="/images/%E5%9B%BE%E7%89%872.png"></p>
+<p><img alt="图片3" loading="lazy" src="/images/%E5%9B%BE%E7%89%873.png"></p>
+<p><img alt="图片4" loading="lazy" src="/images/%E5%9B%BE%E7%89%874.png"></p>
+<h2 id="zip-文件结构要点">Zip 文件结构要点<a hidden class="anchor" aria-hidden="true" href="#zip-文件结构要点">#</a></h2>
+<p>压缩源文件数据区  <code>50 4B 03 04</code>  头文件标记</p>
+<p>压缩源文件目录区  <code>50 4B 01 02</code>  目录文件头标记</p>
+<p>压缩源文件目录结束标志 <code>50 4B 05 06</code>  目录结束标记</p>
+<h2 id="全局方式位标记">全局方式位标记<a hidden class="anchor" aria-hidden="true" href="#全局方式位标记">#</a></h2>
+<p><code>50 4B 03 04 14 00</code> **后 2 字节** | 数据区加密标记 |</p>
+<p><code>50 4B 01 02 14 00</code> **后 2 字节** | 目录区加密标记 |</p>
+<h2 id="判断标准">判断标准<a hidden class="anchor" aria-hidden="true" href="#判断标准">#</a></h2>
+<p> 无加密  <code>00 00</code>  <code>00 00</code></p>
+<p> 伪加密  <code>00 00</code>  <code>09 00</code>（或 <code>01 00</code>）</p>
+<p> 真加密 | <code>09 00</code>  <code>09 00</code></p>
+<h2 id="本题分析">本题分析<a hidden class="anchor" aria-hidden="true" href="#本题分析">#</a></h2>
+<p>本题可知是伪加密。</p>
+<p>改掉加密之后，我们得到了两个文件。其中一个是dll。结合题目名这是本题的关键。</p>
+<p>重要的是如何从dll文件中提取密钥。</p>
+<p>dll文件时应用程序的扩展，于是我们就要编写一个程序调用dll</p>
+<p>调用程序需要利用dll里的内置函数，于是我们要想办法拿到dll里的内置函数。</p>
+<p>可以利用vs2022自带的dumpbin来实现。</p>
+<p><img alt="图片5" loading="lazy" src="/images/%E5%9B%BE%E7%89%875.png"></p>
+<p>输入命令dumpbin.exe /EXPORTS &ldquo;C:\Users\asus\Desktop\Others\CCB\C!C!B!.dll&quot;得到</p>
+<p><img alt="图片6" loading="lazy" src="/images/%E5%9B%BE%E7%89%876.png"></p>
+<p>内置函数CCB</p>
+<p>写程序调用ccb函数，详见ccb.py</p>
+<p>得到密钥b31915cd51e064bbaf8d6b2790ba108df10c84358f37033cb83609e78e9a3bfb</p>
+<p>顺利得到flag</p>
 
 
   </div>
 
   <footer class="post-footer">
     <ul class="post-tags">
+      <li><a href="https://lewis1766.github.io/tags/ctf/">CTF</a></li>
+      <li><a href="https://lewis1766.github.io/tags/zip%E4%BC%AA%E5%8A%A0%E5%AF%86/">Zip伪加密</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="https://lewis1766.github.io/posts/20260504/20260504/">
+  <a class="prev" href="https://lewis1766.github.io/posts/my-first-post/">
     <span class="title">« 上一页</span>
-    <span>挖到第一个漏洞：杭州鼎文国际学校API未授权访问</span>
-  </a>
-  <a class="next" href="https://lewis1766.github.io/posts/20251106/">
-    <span class="title">下一页 »</span>
-    <span>Zip伪加密 &#43; DLL调用逆向题解</span>
+    <span>第一篇文章</span>
   </a>
 </nav>
 
