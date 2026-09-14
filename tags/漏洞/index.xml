@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>漏洞 on Lewis 的博客</title>
-    <link>http://localhost:1313/tags/%E6%BC%8F%E6%B4%9E/</link>
+    <link>https://lewis1766.github.io/tags/%E6%BC%8F%E6%B4%9E/</link>
     <description>Recent content in 漏洞 on Lewis 的博客</description>
     <generator>Hugo</generator>
     <language>zh</language>
     <lastBuildDate>Mon, 04 May 2026 21:54:33 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/%E6%BC%8F%E6%B4%9E/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://lewis1766.github.io/tags/%E6%BC%8F%E6%B4%9E/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>挖到第一个漏洞：杭州鼎文国际学校API未授权访问</title>
-      <link>http://localhost:1313/posts/20260504/20260504/</link>
+      <link>https://lewis1766.github.io/posts/20260504/20260504/</link>
       <pubDate>Mon, 04 May 2026 21:54:33 +0800</pubDate>
-      <guid>http://localhost:1313/posts/20260504/20260504/</guid>
+      <guid>https://lewis1766.github.io/posts/20260504/20260504/</guid>
       <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;入行漏洞挖掘以来，终于成功提交并通过审核第一个正式漏洞，记录下这次完整挖洞全过程，也算是给自己网络安全学习之路留下一份纪念。&lt;/p&gt;
 &lt;h2 id=&#34;漏洞基础信息&#34;&gt;漏洞基础信息&lt;/h2&gt;
@@ -29,13 +29,13 @@
 &lt;code&gt;https://pr.dingwenacademy.com/static/js/app.ac0b7b5b.js&lt;/code&gt;
 这种网页一般都是前后端分离的架构，提升了用户体验不假，但是容易出现api未授权访问
 搜索关键字“api”，发现暴露了后端大量业务API接口地址，逐一筛选测试接口可用性。
-&lt;img alt=&#34;js&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/js.png&#34;&gt;&lt;/p&gt;
+&lt;img alt=&#34;js&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/js.png&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;漏洞核心问题&#34;&gt;漏洞核心问题&lt;/h2&gt;
 &lt;p&gt;发现/api/student/selectAllBy, /api/student/selectDocBy, /api/source/getSelect, /api/source/getSelectByUser
 暴露大量人员信息，包含姓名，邮箱，用户名
-&lt;img alt=&#34;leak&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/leak.jpg&#34;&gt;&lt;/p&gt;
+&lt;img alt=&#34;leak&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/leak.jpg&#34;&gt;&lt;/p&gt;
 &lt;p&gt;/api/student/selectAllBy这个接口暴露微信wxpass、人员唯一ID 等核心隐私数据。
-&lt;img alt=&#34;leak2&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/images/leak2.jpg&#34;&gt;&lt;/p&gt;
+&lt;img alt=&#34;leak2&#34; loading=&#34;lazy&#34; src=&#34;https://lewis1766.github.io/images/leak2.jpg&#34;&gt;&lt;/p&gt;
 &lt;p&gt;多组未授权接口组合利用，可批量抓取学校师资、生源、部门配置、业务资源等内部数据，极易造成校内人员信息批量外泄，存在隐私泄露与后续社工攻击风险。&lt;/p&gt;
 &lt;h2 id=&#34;漏洞详情总结&#34;&gt;漏洞详情总结&lt;/h2&gt;
 &lt;p&gt;平台后端整站API接口设计存在严重权限管控缺失，前端JS明文批量泄露接口路径，后台未统一做登录态校验。
