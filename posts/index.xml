@@ -6,8 +6,41 @@
     <description>Recent content in 文章 on Lewis 的博客</description>
     <generator>Hugo</generator>
     <language>zh</language>
-    <lastBuildDate>Mon, 01 Jun 2026 21:54:33 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 18 Sep 2026 12:51:58 +0800</lastBuildDate>
     <atom:link href="https://lewis1766.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CobaltStrike的容器化实现</title>
+      <link>https://lewis1766.github.io/posts/20260918/</link>
+      <pubDate>Fri, 18 Sep 2026 12:51:58 +0800</pubDate>
+      <guid>https://lewis1766.github.io/posts/20260918/</guid>
+      <description>&lt;h1 id=&#34;cobalt-strike-48-client-docker-部署指南&#34;&gt;Cobalt Strike 4.8 Client Docker 部署指南&lt;/h1&gt;
+&lt;p&gt;为解决java环境不兼容问题，将 &lt;strong&gt;Cobalt Strike 4.8 汉化版客户端&lt;/strong&gt;（Java Swing GUI）完整容器化，通过浏览器远程桌面访问。
+&lt;a href=&#34;https://github.com/Lewis1766/CobaltStrike-docker-vnc&#34;&gt;Github项目链接&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;-前置要求&#34;&gt;📋 前置要求&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Docker Desktop&lt;/strong&gt;: 20.10+（含 Compose v2）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;内存&lt;/strong&gt;: 至少 4GB 可用（容器限制 2GB）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CPU&lt;/strong&gt;: 建议 2 核以上&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;-技术架构&#34;&gt;🏗️ 技术架构&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;┌─────────────────────────────────────────────┐
+│           Docker Container (Ubuntu 20.04)    │
+│                                              │
+│   entrypoint.sh (PID 1 入口)                  │
+│     ├─ [启动前] start_vnc.sh 清理残留          │
+│     │          (锁文件/socket/孤儿进程/shm)    │
+│     └─ exec supervisord                       │
+│          ├─ [vncserver] Xvnc :99              │
+│          │   └─ 内联再清一次锁后启动 (:5900)   │
+│          ├─ [noVNC]     websockify (:6080)    │
+│          │   └─ 浏览器 WebSocket→VNC          │
+│          └─ [csclient]  start.sh → CS GUI     │
+│                         (DISPLAY=:99)         │
+└─────────────────────────────────────────────┘
+        ↑ port 6080 / 5900
+   浏览器 http://localhost:6080
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;关键设计点&lt;/strong&gt;：&lt;/p&gt;</description>
+    </item>
     <item>
       <title>一次对学校内网的渗透</title>
       <link>https://lewis1766.github.io/posts/20260601/</link>

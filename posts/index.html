@@ -158,6 +158,20 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">CobaltStrike的容器化实现
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Cobalt Strike 4.8 Client Docker 部署指南 为解决java环境不兼容问题，将 Cobalt Strike 4.8 汉化版客户端（Java Swing GUI）完整容器化，通过浏览器远程桌面访问。 Github项目链接
+📋 前置要求 Docker Desktop: 20.10&#43;（含 Compose v2） 内存: 至少 4GB 可用（容器限制 2GB） CPU: 建议 2 核以上 🏗️ 技术架构 ┌─────────────────────────────────────────────┐ │ Docker Container (Ubuntu 20.04) │ │ │ │ entrypoint.sh (PID 1 入口) │ │ ├─ [启动前] start_vnc.sh 清理残留 │ │ │ (锁文件/socket/孤儿进程/shm) │ │ └─ exec supervisord │ │ ├─ [vncserver] Xvnc :99 │ │ │ └─ 内联再清一次锁后启动 (:5900) │ │ ├─ [noVNC] websockify (:6080) │ │ │ └─ 浏览器 WebSocket→VNC │ │ └─ [csclient] start.sh → CS GUI │ │ (DISPLAY=:99) │ └─────────────────────────────────────────────┘ ↑ port 6080 / 5900 浏览器 http://localhost:6080 关键设计点：
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-09-18 12:51:58 +0800 CST'>September 18, 2026</span>&nbsp;·&nbsp;<span>2 分钟</span>&nbsp;·&nbsp;<span>Lewis</span></footer>
+  <a class="entry-link" aria-label="post link to CobaltStrike的容器化实现" href="https://lewis1766.github.io/posts/20260918/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">一次对学校内网的渗透
     </h2>
   </header>
